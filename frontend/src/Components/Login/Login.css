@@ -22,10 +22,18 @@
     background-color: rgb(255,255,255);
     border-radius: 3px;
 }
+.box-logo{
+    height: 175px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
 .instaLogoText{
-    width: 200px;
-    height: 95px;
-    margin: 30px 0;
+    width: 175px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .box-signup .button-signup{
