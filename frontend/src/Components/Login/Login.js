@@ -1,7 +1,7 @@
 import React from 'react'
-import instagram from '../../assets/Instagram-Logo.png'
 import './Login.css'
-
+import { Link } from 'react-router-dom';
+import img_logo from '../Assets/Logo.png';
 
 
 
@@ -10,7 +10,7 @@ function Login() {
     <div className='login-container'>
         <div className='box-outline'>
             <div className='box-logo'>
-                <img src={instagram} className='instaLogoText'></img>
+                <img src={img_logo} className='instaLogoText' alt='Logo'></img>
             </div>
 
             <div className='input-UserName'>
@@ -25,21 +25,23 @@ function Login() {
             </div>
 
             <div className='box-button-login'>
-                <button className='button-login'>
-                    Đăng nhập
-                </button>
+                <Link to={"/home"}>
+                    <button className='button-login' >
+                        Đăng nhập
+                    </button>
+                </Link>
             </div>
 
             <div className='text-forgotPass'>
-                <p> <a className='forgot-pass' href=''>Quên Mật Khẩu?</a></p>
+                {/* <a className='forgot-pass' href='#'>Quên Mật Khẩu?</a> */}
             </div>
         </div>
-
-        <div className='box-signup'>
-            <p>Bạn Không có tài Khoản? <a className='button-signup' href=''>Đăng Kí</a></p>
-            
-        </div>
-
+            <div className='box-signup'>
+                <p>Bạn Không có tài Khoản?&nbsp;</p>
+                <Link to={"/signup"}>
+                    <p>Đăng kí</p>
+                </Link>
+            </div>
     </div>
   );
 };
