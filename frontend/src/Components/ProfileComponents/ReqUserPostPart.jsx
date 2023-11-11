@@ -3,28 +3,30 @@ import { AiOutlineTable, AiOutlineUser } from 'react-icons/ai'
 import { BiBookmark } from 'react-icons/bi'
 import {RiVideoAddLine} from 'react-icons/ri'
 import ReqUserPostCard from './ReqUserPostCard'
+import './ReqUserPostCard.css'
 
 const ReqUserPostPart = () => {
-    const [activeTab, setActiveTab]=useState()
+    const [activeTab, setActiveTab]=useState("POSTS")
     const tabs=[
         {
-            tab:"Post",
+            tab:"POSTS",
             icon: <AiOutlineTable></AiOutlineTable>,
             activeTab: ""
         },
         {
-            tab:"Saved", icon:<BiBookmark/>
+            tab:"SAVED",
+            icon:<BiBookmark/>
         },
         {
-            tab:"Tagged",
+            tab:"TAGGED",
             icon:<AiOutlineUser></AiOutlineUser>
         }
     ]
   return (
     <div>
-        <div className='flex space-x-14 border-t relative'>
+        <div className='tab flex space-x-14 border-t relative'>
             {tabs.map((item)=>
-                <div onClick={()=>setActiveTab(item.tab)} className={`${activeTab===item.tab?"border-t border-black":"opacity-60"} flex items-center cursor-pointer py-2 text-sm`}>
+                <div onClick={()=>setActiveTab(item.tab)} className={`${activeTab===item.tab?"border-t border-black":"opacity-60"} flex items-center cursor-pointer py-2 text-md`}>
                     <p>{item.icon}</p>
                     <p className='ml-1'>{item.tab}</p>
                 </div>
@@ -38,5 +40,6 @@ const ReqUserPostPart = () => {
     </div>
   )
 }
+
 
 export default ReqUserPostPart
