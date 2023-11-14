@@ -25,11 +25,9 @@ function Login() {
             </div>
 
             <div className='box-button-login'>
-                <Link to={"/home"}>
-                    <button className='button-login' >
-                        Đăng nhập
+                    <button >
+                        <a className='button-login' href='/router'>Đăng nhập</a>
                     </button>
-                </Link>
             </div>
 
             <div className='text-forgotPass'>
