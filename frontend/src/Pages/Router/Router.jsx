@@ -7,13 +7,14 @@ const Router = () => {
   return (
     <div>
         <div className="flex">
-            <div className='w-[16.25%] border border-l-slate-500'>
+            <div className='w-[18.5%] border border-l-slate-500'>
                 <Sidebar/>
             </div>
             <div className='w-full'>
                 <Routes>
-                    <Route path='/home' element={<HomePage/>}></Route>
-                    <Route path='/user' element={<Profile/>}></Route>
+                    <Route path='/router' index element={<HomePage/>}>
+                        <Route path='/user' element={<Profile/>}></Route>
+                    </Route>
                 </Routes>
             </div>
         </div>
