@@ -3,9 +3,13 @@ import {AiOutlineMenu} from 'react-icons/ai'
 import {mainu} from './SidebarConfig'
 import { useNavigate } from 'react-router-dom';
 import './Sidebar.css';
+import CreatPostModal from '../modals/create-post-modal';
+
 const Sidebar = () => {
   const [activeTab, setActiveTab]=useState("Home");
   const navigate=useNavigate();
+  const [isOpenModalPost, setIsOpenModalPost] = useState(false);
+
   const handleTabClick=(title)=>{
     setActiveTab(title)
     if(title==='Profile'){
@@ -14,6 +18,8 @@ const Sidebar = () => {
     else if(title==='Home')
     {
       navigate("/router");
+    }else if (title === "Create") {
+      setIsOpenModalPost(true);
     }
   };
 
@@ -37,6 +43,10 @@ const Sidebar = () => {
           <AiOutlineMenu className='text-3xl mr-5'/>
           <p className="flex items-center cursor-pointer text-lg">More</p>
         </div>
+        <CreatPostModal
+          isOpen={isOpenModalPost}
+          setCloseModal={setIsOpenModalPost}
+        />
       </div>
     </div>
 );
