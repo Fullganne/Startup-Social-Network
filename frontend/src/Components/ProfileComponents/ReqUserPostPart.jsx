@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { AiOutlineTable, AiOutlineUser } from 'react-icons/ai'
 import { BiBookmark } from 'react-icons/bi'
-import {RiVideoAddLine} from 'react-icons/ri'
 import ReqUserPostCard from './ReqUserPostCard'
 import './ReqUserPostCard.css'
 

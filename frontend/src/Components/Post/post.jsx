@@ -38,8 +38,13 @@ const PostCard=()=>{
                             <p className='font-thin text-sm' >location </p>
                          </div>
                     </div>
-                    <div className='asss'>
-                     <BsThreeDots className='dots' onClick={handleOpenModel}/>
+
+                    <div className='dropdown'>
+                    <BsThreeDots className='dots' onClick={handleClick}/>
+                    <div  className='dropdown-content'>
+                       {showDropdown&& <button className='bg-black text-white buttony-1 px-4 rounded-md curson-pointer'>Delete</button>}
+                    </div>
+
                     </div>
                 </div>
                 <div className='w-full'>

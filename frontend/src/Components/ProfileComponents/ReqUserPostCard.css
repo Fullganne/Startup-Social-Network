@@ -34,11 +34,10 @@
 }
 .overlay-text span{
     color: white;
+    position: absolute;
+    top: 1px;
 }
 .tab{
     justify-content: center;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-.overlay-text div{
-    width: 50px;
 }
