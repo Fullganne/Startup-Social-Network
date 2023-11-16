@@ -5,19 +5,25 @@ import {BsThreeDots,BsBookmarkFill,BsBookmark, BsEmojiSmile} from 'react-icons/b
 import { AiFillHeart , AiOutlineHeart} from 'react-icons/ai'
 import {FaRegComment} from 'react-icons/fa'
 import {RiSendPlaneLine} from 'react-icons/ri'
+import ModelGuess from './guess';
+import { useDisclosure } from '@chakra-ui/react'
+import ModelUser from './userModel';
+
 const PostCard=()=>{
-    const[showDropdown,setShowDropdown]=useState(false);
     const[isPostLiked,setIsPostLiked]=useState(false);
     const[isSaved,setIsSaved]=useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const handleSavePost=()=>{
         setIsSaved(!isSaved);
-    }
-    const handleClick=()=>{
-    setShowDropdown(!showDropdown);
-    }
+    };
+    let used="users";
+    const handleOpenModel=()=>{
+        onOpen()
+    };
     const handlePostLiked=()=>{
         setIsPostLiked(!isPostLiked);
-    }
+    };
+    
     return(
         <div>
             <div className='border rounded-md w-full'>
@@ -32,11 +38,8 @@ const PostCard=()=>{
                             <p className='font-thin text-sm' >location </p>
                          </div>
                     </div>
-                    <div className='dropdown'>
-                    <BsThreeDots className='dots' onClick={handleClick}/>
-                    <div  className='dropdown-content'>
-                       {showDropdown&& <p className='bg-black text-white py-1 px-4 rounded-md curson-pointer'>Delete</p>}
-                    </div>
+                    <div className='asss'>
+                     <BsThreeDots className='dots' onClick={handleOpenModel}/>
                     </div>
                 </div>
                 <div className='w-full'>
@@ -63,7 +66,9 @@ const PostCard=()=>{
                     </div>
                 </div>  */} {/*Comment nếu có */}
             </div>
+            {used==="user"?<ModelUser isOpen={isOpen} onClose={onClose}/>:<ModelGuess isOpen={isOpen} onClose={onClose}/>}
         </div>
+        
     )
 }
 export default PostCard;
