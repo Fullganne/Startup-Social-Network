@@ -35,7 +35,7 @@ const PostCard=()=>{
                     <div className='dropdown'>
                     <BsThreeDots className='dots' onClick={handleClick}/>
                     <div  className='dropdown-content'>
-                       {showDropdown&& <p className='bg-black text-white py-1 px-4 rounded-md curson-pointer'>Delete</p>}
+                       {showDropdown&& <button className='bg-black text-white buttony-1 px-4 rounded-md curson-pointer'>Delete</button>}
                     </div>
                     </div>
                 </div>
