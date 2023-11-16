@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { GiWorld } from "react-icons/gi";
 
 const CreatPostModal = ({ isOpen, setCloseModal }) => {
   const [previewImage, setPreviewImage] = useState();
@@ -30,15 +31,19 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                     alt="avatar"
                   />
                 </div>
-                <span>User Name</span>
-                <div>Công khai</div>
+                <p>User Name</p>
+                <div className="flex items-center rounded-lg border-solid border-2 border-black m-2 py-1 px-3" >
+                  <GiWorld/>
+                  <p className="ml-2">Công khai</p>
+                </div>
+
               </div>
               <textarea className="min-w-[485px] min-h-[70px] mt-[10px] m-2 " placeholder=" Bạn đang nghĩ gì..." name="content" />
-              <div className="h-[200px]">
+              <div className="h-[350px] p-2">
                 {previewImage && (
                   <img
                     src={previewImage}
-                    className="h-[100%]"
+                    className="h-[100%] w-[100%]"
                     alt="Post Upload"
                   />
                 )}
@@ -50,6 +55,7 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                   type="file"
                   id="file"
                   name="file"
+                  
                   onChange={handleOnChange}
                 />
               </div>
