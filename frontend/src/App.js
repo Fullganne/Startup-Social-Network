@@ -9,7 +9,7 @@ import HomePage from './Pages/HomePage/HomePage';
 function App() {
   return (
     <div className="App">
-     <Sidebar></Sidebar>
+      <Router></Router>
     </div>
   );
 }
