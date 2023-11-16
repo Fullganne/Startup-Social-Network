@@ -18,7 +18,7 @@ const Sidebar = () => {
     }
     else if(title==='Home')
     {
-      navigate("/");
+      navigate("/router");
     }else if (title === "Create") {
       setIsOpenModalPost(true);
     }
