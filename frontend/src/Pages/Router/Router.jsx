@@ -12,9 +12,8 @@ const Router = () => {
             </div>
             <div className='w-full'>
                 <Routes>
-                    <Route path='/' element={<HomePage/>}>
-                        <Route path='/user' element={<Profile/>}></Route>
-                    </Route>
+                    <Route path='/' element={<HomePage/>}></Route>
+                    <Route path='/user' element={<Profile/>}></Route>
                 </Routes>
             </div>
         </div>
