@@ -1,0 +1,12 @@
+#wrapper{
+    padding: 5px;
+    position: absolute;
+    display: block;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: #fffd;
+    bottom: 100%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px #ccc;
+    z-index: 10;
+}

@@ -9,11 +9,13 @@ const ReqUserPostCard = () => {
         <div className='post'>
             <img className='cursor-pointer' src="https://lh3.google.com/u/0/d/1yyX1z7f8fuSAvbdv04MrOzh9vhpXW4Vc=w1910-h922-iv1" alt="" />
             <div className='overlay'>
-                <div className='overlay-text flex justify-between'>
-                    <div>
-                        <AiFillHeart></AiFillHeart><span>100</span>
+                <div className='overlay-text flex'>
+                    <div className='flex space-x-5'>
+                        <AiFillHeart></AiFillHeart><span>300</span>
                     </div>
-                    <div><FaComment/><span>36</span></div>
+                    <div className='flex space-x-5 ml-10'>
+                        <FaComment/><span>36</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ const ProfileUserDetails = () => {
               </div>
               <div className='flex space-x-10'>
                 <div>
-                  <span className=' mr-2'>3</span>
+                  <span className='font-semibold mr-2'>3</span>
                   <span>posts</span>
                 </div>
                 <div>
