@@ -4,12 +4,12 @@ const HomePage = () => {
   return (
     <div>
       <div className='mt-10 flex w-[100%] justify-center'>
-        <div className='w-[44%] px-10'>
-            <div className='space-y-10 w-full mt-10'>
+        <div className='w-[75%] px-10'>
+            <div className='space-y-10 w-[70%] mt-10 ml-[15%]'>
               <PostCard></PostCard>
             </div>
         </div>
-        <div className='w-[35%]'>
+        <div className='w-[25%]'>
             homeright
         </div>
       </div>
