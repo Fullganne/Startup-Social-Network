@@ -40,9 +40,9 @@ const PostCard=()=>{
                     </div>
 
                     <div className='dropdown'>
-                    <BsThreeDots className='dots' onClick={handleClick}/>
+                    <BsThreeDots className='dots'/>
                     <div  className='dropdown-content'>
-                       {showDropdown&& <button className='bg-black text-white buttony-1 px-4 rounded-md curson-pointer'>Delete</button>}
+                       {<button className='bg-black text-white buttony-1 px-4 rounded-md curson-pointer'>Delete</button>}
                     </div>
 
                     </div>
