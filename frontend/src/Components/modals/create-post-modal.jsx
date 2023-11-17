@@ -46,7 +46,7 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
               
               </div>
               <textarea className="min-w-[485px] min-h-[70px] mt-[10px] m-2 " placeholder=" Bạn đang nghĩ gì..." name="content" />
-              <div className="h-[350px] p-2">
+              <div className="h-[350px] relative p-2">
                 {previewImage && (
                   <img
                     src={previewImage}
@@ -54,7 +54,7 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                     alt="Post Upload"
                   />
                 )}
-                 <div onClick={()=>setPreviewImage('')} className="bg-slate-50 absolute top-[270px] right-[160px]">
+                 <div onClick={()=>setPreviewImage('')} className="bg-amber-300 absolute top-[10px] right-[10px] cursor-pointer">
                     <AiOutlineClose/>
                     
                  </div>
