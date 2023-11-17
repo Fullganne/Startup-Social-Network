@@ -11,16 +11,16 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
     <>
       {isOpen && (
         <div
-          className={`bg-[rgba(0,0,0,0.6)] h-[100vh] flex items-center justify-center fixed inset-0`}
+          className={`bg-[rgba(0,0,0,0.6)]  h-[100vh] flex items-center justify-center fixed inset-0`}
         >
           <div
-            className="absolute top-[10px] right-[10px] cursor-pointer text-[30px]"
+            className=" absolute top-[10px]  right-[10px] cursor-pointer text-[30px]"
             onClick={() => setCloseModal(false)}
           >
             <AiOutlineClose />
           </div>
-          <div className="w-[500px]  bg-white min-h-[500px]">
-            <header className="text-center py-[10px] border-[1px] border-gray-50">
+          <div className="w-[500px] rounded-2xl bg-white min-h-[500px]">
+            <header className="rounded-2xl text-center py-[10px] border-[1px] border-gray-50">
               <p className="text-[30px]  font-bold">Tạo bài viết</p>
             </header>
             <div className="">
@@ -32,11 +32,18 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                   />
                 </div>
                 <p>User Name</p>
-                <div className="flex items-center rounded-lg border-solid border-2 border-black m-2 py-1 px-3" >
-                  <GiWorld/>
-                  <p className="ml-2">Công khai</p>
-                </div>
-
+                <select className=" flex items-center rounded-lg border-solid border-2 border-black m-2 py-1 px-3" >
+                  <option>
+                    Công khai
+                  </option>
+                  <option>
+                    Riêng tư
+                  </option>
+                  <option>
+                    Bạn bè
+                  </option>
+                </select>
+              
               </div>
               <textarea className="min-w-[485px] min-h-[70px] mt-[10px] m-2 " placeholder=" Bạn đang nghĩ gì..." name="content" />
               <div className="h-[350px] p-2">
@@ -47,7 +54,11 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                     alt="Post Upload"
                   />
                 )}
-                
+                 <div onClick={()=>setPreviewImage('')} className="bg-slate-50 absolute top-[270px] right-[160px]">
+                    <AiOutlineClose/>
+                    
+                 </div>
+
               </div>
               <div>
                 <label className="ml-2" htmlFor="file">Thêm vào bài viết của bạn </label>
