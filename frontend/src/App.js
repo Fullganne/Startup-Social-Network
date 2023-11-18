@@ -5,9 +5,14 @@ import Router from './Pages/Router/Router';
 import Sidebar from './Components/Sidebar/Sidebar';
 import Profile from './Pages/Profile/Profile';
 import HomePage from './Pages/HomePage/HomePage';
+import { AppProvider } from './Context/UserContext';
+import ListPost from './Components/ProfileComponents/ListPost';
+import ImagePost from './Components/ProfileComponents/ImagePost';
 
 function App() {
+  
   return (
+    <AppProvider>
     <div>
     <div className="flex">
        {window.location.href.includes("/router")||window.location.href.includes("/user")?( <div className='w-[18.5%] border border-l-slate-500'>
@@ -22,12 +27,18 @@ function App() {
 
                 <Route path='/router' index element={<HomePage/>}>
                 </Route>
-                <Route path='/user' element={<Profile/>}></Route>
+                <Route path='/user' element={<Profile/>}>
+
+                  {/* <Route path='/posts' element={<ListPost/>} ></Route>
+                  <Route path='/images' element={<ImagePost/>} ></Route> */}
+
+                </Route>
 
             </Routes>
         </div>
     </div>
 </div>
+</AppProvider>
   );
 }
 

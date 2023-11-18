@@ -1,12 +1,27 @@
-#wrapper{
+.more{
     padding: 5px;
     position: absolute;
     display: block;
     flex-wrap: wrap;
-    width: 100%;
+    width: 300px;
     background-color: #fffd;
     bottom: 100%;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px 1px #ccc;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px 1px #ccc;
     z-index: 10;
+}
+.more-option-container{
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 10px;
+    display: flex;
+    background-color: transparent;
+    width: 100%;
+}
+.more-option-container span{
+    color: black;
+    font-size: larger;
+}
+.more-option-container:hover{
+    background-color: rgb(145, 145, 145, 0.15);
 }
