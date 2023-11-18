@@ -16,7 +16,7 @@ const PostCard=()=>{
     const handleSavePost=()=>{
         setIsSaved(!isSaved);
     };
-    let used="users";
+    let used="guess";
     const handleOpenModel=()=>{
         onOpen()
     };
@@ -26,7 +26,7 @@ const PostCard=()=>{
     
     return(
         <div>
-            <div className='border rounded-md w-full'>
+            <div className='border rounded-md w-full mt-20'>
                 <div className='flex justify-between items-center w-full py-4 px-5'>
                     <div className='flex items-center'>
                         <img className='h-12 w-12 rounded-full'
@@ -38,13 +38,8 @@ const PostCard=()=>{
                             <p className='font-thin text-sm' >location </p>
                          </div>
                     </div>
-
-                    <div className='dropdown'>
-                    <BsThreeDots className='dots' onClick={handleClick}/>
-                    <div  className='dropdown-content'>
-                       {showDropdown&& <button className='bg-black text-white buttony-1 px-4 rounded-md curson-pointer'>Delete</button>}
-                    </div>
-
+                    <div className='asss'>
+                     <BsThreeDots className='dots' onClick={handleOpenModel}/>
                     </div>
                 </div>
                 <div className='w-full'>

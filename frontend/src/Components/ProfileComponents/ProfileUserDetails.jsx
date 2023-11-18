@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {TbSettingsFilled} from "react-icons/tb"
+import { UserContext } from '../../Context/UserContext'
 
 const ProfileUserDetails = () => {
+  const {userData}=useContext(UserContext);
   return (
     <div className='py-10 w-full'>
         <div className='flex items-center'>
@@ -10,22 +12,22 @@ const ProfileUserDetails = () => {
             </div>
             <div className='space-y-5'>
               <div className='flex space-x-10 items-center'>
-                <p>username</p>
+                <p>{userData?.username}</p>
                 <button>Edit Profile</button>
                 <TbSettingsFilled></TbSettingsFilled>
               </div>
               <div className='flex space-x-10'>
                 <div>
-                  <span className='font-semibold mr-2'>3</span>
+                  <span className='font-semibold mr-2'>{userData?.number_post}</span>
                   <span>posts</span>
                 </div>
                 <div>
-                  <span className='font-semibold mr-2'>16</span>
-                  <span>followers</span>
+                  <span className='font-semibold mr-2'>{userData?.number_following}</span>
+                  <span>following</span>
                 </div>
                 <div>
-                  <span className='font-semibold mr-2'>24</span>
-                  <span>following</span>
+                  <span className='font-semibold mr-2'>{userData?.number_followed}</span>
+                  <span>followed</span>
                 </div>
               </div>
             </div>
