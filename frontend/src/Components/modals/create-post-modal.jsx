@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
-import { GiWorld } from "react-icons/gi";
+
 
 const CreatPostModal = ({ isOpen, setCloseModal }) => {
   const [previewImage, setPreviewImage] = useState();
@@ -70,7 +70,7 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                   onChange={handleOnChange}
                 />
               </div>
-              <button className=" rounded-xl bg-indigo-500 front-bold front-[50px] w-[480px] m-2 h-[45px]">Đăng</button>
+              <button className=" rounded-xl bg-indigo-500 front-bold front-[50px] w-[485px] m-2 h-[45px]">Đăng</button>
             </div>
           </div>
         </div>
