@@ -12,7 +12,7 @@ const Router = () => {
             </div>
             <div className='w-full'>
                 <Routes>
-                    <Route path='/' element={<HomePage/>}></Route>
+                    <Route path='/home' element={<HomePage/>}></Route>
                     <Route path='/user' element={<Profile/>}></Route>
                 </Routes>
             </div>
