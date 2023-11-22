@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AiOutlineTable, AiOutlineUser } from 'react-icons/ai'
 import { BiBookmark } from 'react-icons/bi'
 import ReqUserPostCard from './ReqUserPostCard'
 import './ReqUserPostCard.css'
 import { Link, Outlet } from 'react-router-dom'
 import PostCard from '../Post/post'
-
+import postService from '../../services/postService'
+import { UserContext } from '../../Context/UserContext'
+import userService from '../../services/userService'
 const ReqUserPostPart = () => {
+    const {userData}=useContext(UserContext)
+    const [dataPost,setDataPost]=useState(userData.post)
     const [activeTab, setActiveTab]=useState("POSTS")
     const tabs=[
         {
@@ -26,6 +30,20 @@ const ReqUserPostPart = () => {
             link:""
         }
     ]
+
+    const handleFetchPost= async ()=>{
+        const tmp=await userService.getById(userData.id)
+        console.log(tmp)
+
+        setDataPost(tmp.data.post);
+
+    }
+
+    useEffect(()=>{
+        handleFetchPost();
+    },[])
+
+    console.log("ds post ne: ",dataPost)
   return (
     <div>
         <div className='tab flex space-x-14 border-t relative'>
@@ -48,10 +66,13 @@ const ReqUserPostPart = () => {
        
 
 <div className='w-[50%] mx-auto'>
-<PostCard />
-<PostCard/>
-<PostCard/>
-<PostCard/>
+        {
+            dataPost?.map((item)=>{
+                return(
+                    <PostCard handleFetchPost={handleFetchPost} id={item.id_post} data={item}/>
+                )
+            })
+        }
 
 </div>
 

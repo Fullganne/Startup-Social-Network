@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import './post.css'
 import { Link } from 'react-router-dom';
 import {BsThreeDots,BsBookmarkFill,BsBookmark, BsEmojiSmile} from 'react-icons/bs'
@@ -9,31 +9,20 @@ import ModelGuess from './guess';
 import { useDisclosure } from '@chakra-ui/react'
 import ModelUser from './userModel';
 
-import { UserContext } from '../../Context/UserContext';
-import postService from '../../services/postService';
-import userService from '../../services/userService';
-
-const PostCard=({data, handleFetchPost})=>{
+const PostCardFriend=()=>{
     const[isPostLiked,setIsPostLiked]=useState(false);
     const[isSaved,setIsSaved]=useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const {userData, handleFetchUsers}=useContext(UserContext)
     const handleSavePost=()=>{
         setIsSaved(!isSaved);
     };
-    let used="user"
+    let used="guess";
     const handleOpenModel=()=>{
         onOpen()
     };
     const handlePostLiked=()=>{
         setIsPostLiked(!isPostLiked);
     };
-
-    const handleDeletePost= async ()=>{
-        await postService.deletePost(data.id_post)
-        handleFetchPost();
-        handleFetchUsers();
-    }
     
     return(
         <div>
@@ -45,19 +34,16 @@ const PostCard=({data, handleFetchPost})=>{
                          alt='' 
                          />
                          <div className='pl-2' >
-                            <p className='font-semibold text-sm'>{userData?.username}</p>
-                            <p className='font-thin text-sm' >{data?.day}</p>
+                            <p className='font-semibold text-sm'>User name</p>
+                            <p className='font-thin text-sm' >location </p>
                          </div>
                     </div>
                     <div className='asss'>
                      <BsThreeDots className='dots' onClick={handleOpenModel}/>
                     </div>
                 </div>
-                <div className='pl-[20px] mb-[10px]'>
-                    {data?.noidung}
-                </div>
                 <div className='w-full'>
-                    <img className='w-full' src={data?.image} alt=''/>
+                    <img className='w-full' src='https://cdn.pixabay.com/photo/2023/10/28/18/02/songbird-8348139_640.png' alt=''/>
                 </div>
                 <div className='flex justify-between items-center w-full py-4 px-5'>
                     <div className='flex items-center space-x-2 '>
@@ -70,7 +56,7 @@ const PostCard=({data, handleFetchPost})=>{
                     </div>
                 </div>
                 <div className='w-full py-2 px-5'>
-                    <p>{data.like} like</p>
+                    <p>10 like</p>
                     {/* <p className='opacity-50 py-2 cursor-pointer'>view all 10 comment</p> */}
                 </div>
                  {/* <div className='border border-top w-full'>
@@ -80,9 +66,9 @@ const PostCard=({data, handleFetchPost})=>{
                     </div>
                 </div>  */} {/*Comment nếu có */}
             </div>
-            {used==="user"?<ModelUser handleDeletePost={handleDeletePost} isOpen={isOpen} onClose={onClose}/>:<ModelGuess isOpen={isOpen} onClose={onClose}/>}
+            {used==="user"?<ModelUser isOpen={isOpen} onClose={onClose}/>:<ModelGuess isOpen={isOpen} onClose={onClose}/>}
         </div>
         
     )
 }
-export default PostCard;
+export default PostCardFriend;

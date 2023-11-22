@@ -3,7 +3,7 @@ import {TbSettingsFilled} from "react-icons/tb"
 import { UserContext } from '../../Context/UserContext'
 
 const ProfileUserDetails = () => {
-  const {userData}=useContext(UserContext);
+  const {userData, handleFetchUsers}=useContext(UserContext);
   return (
     <div className='py-10 w-full'>
         <div className='flex items-center'>
