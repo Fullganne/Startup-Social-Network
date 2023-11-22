@@ -2,14 +2,14 @@ import React from "react";
 import { Modal,ModalBody,ModalOverlay,ModalContent} from "@chakra-ui/react";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { FaUserFriends } from "react-icons/fa";
-const ModelUser=({onClose,isOpen})=>{
+const ModelUser=({onClose,isOpen, handleDeletePost})=>{
     return(
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
             <div className="rounded-none text-red-500 py-3 text-center border-b-2" >
-                <button className="">Xóa bài viết</button>
+                <button className="" onClick={handleDeletePost}>Xóa bài viết</button>
             </div>
             <div className='flex items-between w-full py-4 px-5 border-b-2'>
                 <div className="flex basis-4/5 items-center">

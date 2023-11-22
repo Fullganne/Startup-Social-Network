@@ -6,7 +6,8 @@ import { useDisclosure } from '@chakra-ui/react'
 
 const ProfileUserDetails = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const {userData}=useContext(UserContext);
+ 
+  const {userData, handleFetchUsers}=useContext(UserContext);
   return (
     <div className='py-10 w-full'>
         <div className='flex items-center'>
