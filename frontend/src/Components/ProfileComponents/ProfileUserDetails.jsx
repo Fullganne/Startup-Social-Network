@@ -1,9 +1,13 @@
 import React, { useContext } from 'react'
 import {TbSettingsFilled} from "react-icons/tb"
 import { UserContext } from '../../Context/UserContext'
+import EditProfileModal from "../modals/edit-profile-modal"
+import { useDisclosure } from '@chakra-ui/react'
 
 const ProfileUserDetails = () => {
-  const {userData}=useContext(UserContext);
+  const { isOpen, onOpen, onClose } = useDisclosure()
+ 
+  const {userData, handleFetchUsers}=useContext(UserContext);
   return (
     <div className='py-10 w-full'>
         <div className='flex items-center'>
@@ -13,7 +17,7 @@ const ProfileUserDetails = () => {
             <div className='space-y-5'>
               <div className='flex space-x-10 items-center'>
                 <p>{userData?.username}</p>
-                <button>Edit Profile</button>
+                <button onClick={onOpen}>Edit Profile</button>
                 <TbSettingsFilled></TbSettingsFilled>
               </div>
               <div className='flex space-x-10'>
@@ -32,6 +36,7 @@ const ProfileUserDetails = () => {
               </div>
             </div>
         </div>
+        <EditProfileModal isOpen={isOpen} onClose={onClose}/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 const SERVER_PORT=8080;
 const POST_ENDPOINT=`http://localhost:${SERVER_PORT}/post`
-const userService={
+const postService={
 
     addPost:(post)=>axios.create({
         baseURL: POST_ENDPOINT,
@@ -18,7 +18,12 @@ const userService={
         timeout: 5000,
     }).delete(`delete/${id}`),
 
+    getPostOfUser:(id)=>axios.create({
+        baseURL:POST_ENDPOINT,
+        timeout:5000,
+    }).get(`/list/${id}`)
+
 
 }
 
-export default userService;
+export default postService;

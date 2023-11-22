@@ -11,6 +11,7 @@ import ImagePost from './Components/ProfileComponents/ImagePost';
 import SearchCard from './Components/search/search';
 import SearchPage from './Pages/Search/searchPage';
 
+
 function App() {
   
   return (

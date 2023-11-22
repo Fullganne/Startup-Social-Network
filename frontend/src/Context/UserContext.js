@@ -1,5 +1,6 @@
 // UserContext.js
 import { createContext, useEffect, useState } from "react";
+import userService from "../services/userService";
 
 export const UserContext = createContext({});
 
@@ -17,6 +18,7 @@ export const AppProvider = ({ children }) => {
     };
 
     window.addEventListener("storage", handleStorageChange);
+    
 
     // Cleanup the event listener when the component is unmounted
     return () => {
@@ -24,8 +26,21 @@ export const AppProvider = ({ children }) => {
     };
   }, []); // The empty dependency array ensures that this effect runs only once
 
+
+  const handleFetchUsers= async ()=>{
+    const tmp=await userService.getById(userData.id)
+    console.log(tmp)
+
+    // setDataPost(tmp.data.post);
+    setUserData(tmp.data)
+
+}
+
+// useEffect(()=>{
+//     handleFetchPost();
+// },[])
   return (
-    <UserContext.Provider value={{ userData }}>
+    <UserContext.Provider value={{ userData, handleFetchUsers  }}>
       {children}
     </UserContext.Provider>
   );
