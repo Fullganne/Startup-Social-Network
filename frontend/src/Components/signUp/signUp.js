@@ -72,36 +72,28 @@ const SignUp=()=>{
             }
         
             if (Object.keys(validationErrors).length === 0) {
-                const emailExists = await userService.checkEmailExists(email);
-                if(emailExists)
-                {
-                    validationErrors.email = 'Email này đã tồn tại!';
-                    setErrors(validationErrors);
+                const newUser = await userService.signupUser({
+                    id: uuid4(),
+                    username: username,
+                    email: email,
+                    password: password,
+                });
+        
+                setEmail('');
+                setPassword('');
+                setUsername('');
+                console.log(newUser);
+        
+                if (newUser?.data?.message) {
+                // Handle message if needed
+                } else {
+                    alert('Tạo tài khoản thành công');
+                    navigate('/');
                 }
-                else {
-                    const newUser = await userService.signupUser({
-                        id: uuid4(),
-                        username: username,
-                        email: email,
-                        password: password,
-                    });
-            
-                    setEmail('');
-                    setPassword('');
-                    setUsername('');
-                    console.log(newUser);
-            
-                    if (newUser?.data?.message) {
-                    // Handle message if needed
-                    } else {
-                        alert('Tạo tài khoản thành công');
-                        navigate('/');
-                    }
                 }
-            }
             else {
                 setErrors(validationErrors);
-          }
+            }
         }
         catch (e) {
             console.log(e.response.data);
