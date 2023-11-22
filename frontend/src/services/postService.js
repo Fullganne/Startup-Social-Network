@@ -21,7 +21,17 @@ const postService={
     getPostOfUser:(id)=>axios.create({
         baseURL:POST_ENDPOINT,
         timeout:5000,
-    }).get(`/list/${id}`)
+    }).get(`/list/${id}`),
+
+    likePost:(id_post,id_user)=>axios.create({
+        baseURL:POST_ENDPOINT,
+        timeout:5000,
+    }).post(`/like?id_post=${id_post}&userId=${id_user}`),
+
+    dislikePost:(id_post,id_user)=>axios.create({
+        baseURL:POST_ENDPOINT,
+        timeout:5000,
+    }).post(`/dislike?id_post=${id_post}&userId=${id_user}`),
 
 
 }

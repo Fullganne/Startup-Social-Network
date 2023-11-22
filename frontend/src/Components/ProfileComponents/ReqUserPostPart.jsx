@@ -69,7 +69,7 @@ const ReqUserPostPart = () => {
         {
             dataPost?.map((item)=>{
                 return(
-                    <PostCard handleFetchPost={handleFetchPost} id={item.id_post} data={item}/>
+                    <PostCard handleFetchPost={handleFetchPost} key={item.id_post} id={item.id_post} data={item}/>
                 )
             })
         }

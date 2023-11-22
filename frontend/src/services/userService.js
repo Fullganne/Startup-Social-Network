@@ -22,6 +22,10 @@ const userService={
         timeout: 5000,
     }).put(`/update/${id}`,user),
 
+    getUserNotId:(id)=>axios.create({
+        baseURL: USER_ENDPOINT,
+        timeout: 5000,
+    }).get(`/notid/${id}`)
     
 }
 

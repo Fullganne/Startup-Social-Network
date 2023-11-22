@@ -26,13 +26,34 @@ const PostCard=({data, handleFetchPost})=>{
         onOpen()
     };
     const handlePostLiked=()=>{
-        setIsPostLiked(!isPostLiked);
+        if(isPostLiked==false){
+            postService.likePost(data.id_post,userData.id);
+            setIsPostLiked(true);
+            handleFetchPost()
+        }else{
+            postService.dislikePost(data.id_post,userData.id);
+            setIsPostLiked(false);
+            handleFetchPost()
+        }
+        
     };
+    const handlePostUnLiked=()=>{
+        postService.dislikePost(data.id_post,userData.id);
+        setIsPostLiked(false);
+        handleFetchPost()
+
+    };
+
 
     const handleDeletePost= async ()=>{
         await postService.deletePost(data.id_post)
         handleFetchPost();
         handleFetchUsers();
+    }
+
+    const handleUpdatePost=async(da)=>{
+        await postService.updatePost(data.id_post,{privacy:da})
+        // console.log(data.)
     }
     
     return(
@@ -61,7 +82,8 @@ const PostCard=({data, handleFetchPost})=>{
                 </div>
                 <div className='flex justify-between items-center w-full py-4 px-5'>
                     <div className='flex items-center space-x-2 '>
-                        {isPostLiked? <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostLiked}/>:<AiOutlineHeart className='text-xl hover:opacity-50 cursor-pointer' onClick={handlePostLiked}/>}
+                        {/* {isPostLiked? <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostUnLiked}/>:<AiOutlineHeart className='text-xl hover:opacity-50 cursor-pointer' onClick={handlePostLiked}/>} */}
+                       <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostLiked}/>
                         {<FaRegComment className='text-xl hover:opacity-50 cursor-pointer'/>}
                         {<RiSendPlaneLine className='text-xl hover:opacity-50 cursor-pointer'/>}
                     </div>
@@ -80,7 +102,7 @@ const PostCard=({data, handleFetchPost})=>{
                     </div>
                 </div>  */} {/*Comment nếu có */}
             </div>
-            {used==="user"?<ModelUser handleDeletePost={handleDeletePost} isOpen={isOpen} onClose={onClose}/>:<ModelGuess isOpen={isOpen} onClose={onClose}/>}
+            {used==="user"?<ModelUser handleUpdatePost={handleUpdatePost} handleDeletePost={handleDeletePost} isOpen={isOpen} onClose={onClose}/>:<ModelGuess isOpen={isOpen} onClose={onClose}/>}
         </div>
         
     )

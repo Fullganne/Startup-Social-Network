@@ -27,6 +27,8 @@ export const AppProvider = ({ children }) => {
   }, []); // The empty dependency array ensures that this effect runs only once
 
 
+
+  const [userNotId,setUserNotId]=useState([])
   const handleFetchUsers= async ()=>{
     const tmp=await userService.getById(userData.id)
     console.log(tmp)
@@ -36,11 +38,18 @@ export const AppProvider = ({ children }) => {
 
 }
 
-// useEffect(()=>{
-//     handleFetchPost();
-// },[])
+const handleFetchUserNotThisId=async()=>{
+  const tmp=await userService.getUserNotId(userData.id)
+  console.log(userData.id)
+
+  // setDataPost(tmp.data.post);
+  setUserNotId(tmp.data)
+}
+useEffect(()=>{
+    handleFetchUserNotThisId();
+},[])
   return (
-    <UserContext.Provider value={{ userData, handleFetchUsers  }}>
+    <UserContext.Provider value={{ userData, handleFetchUsers , userNotId }}>
       {children}
     </UserContext.Provider>
   );
