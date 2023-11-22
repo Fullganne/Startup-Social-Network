@@ -10,6 +10,7 @@ const ModelGuess=({onClose,isOpen})=>{
           <ModalBody>
             <div className="rounded-none text-red-500 py-3 text-center border-b-2" >
                 <button className="">Báo cáo bài viết</button>
+                <div></div>
             </div>
             
             

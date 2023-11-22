@@ -8,6 +8,8 @@ import HomePage from './Pages/HomePage/HomePage';
 import { AppProvider } from './Context/UserContext';
 import ListPost from './Components/ProfileComponents/ListPost';
 import ImagePost from './Components/ProfileComponents/ImagePost';
+import SearchCard from './Components/search/search';
+import SearchPage from './Pages/Search/searchPage';
 
 
 function App() {
@@ -26,8 +28,12 @@ function App() {
 
               <Route path='/signup' element={<SignUp/>}></Route>
 
-                <Route path='/router' index element={<HomePage/>}>
+                <Route path='/' index element={<HomePage/>}>
                 </Route>
+                <Route path='/home' element={<HomePage/>}>
+                  
+                </Route>
+                <Route path='/search' element={<SearchPage/>}></Route>
                 <Route path='/user' element={<Profile/>}>
 
                   {/* <Route path='/posts' element={<ListPost/>} ></Route>

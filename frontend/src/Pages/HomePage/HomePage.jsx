@@ -11,7 +11,11 @@ const HomePage = () => {
               <PostCard></PostCard>
               <PostCard></PostCard>
               <PostCard></PostCard>
+              <PostCard></PostCard>
+              <PostCard></PostCard>
+
               <PostCard></PostCard> */}
+
 
             </div>
         </div>
