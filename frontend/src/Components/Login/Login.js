@@ -11,9 +11,36 @@ function Login() {
     const navigate=useNavigate()
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState('');
-    const [check, setCheck] = useState(false); 
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true); 
 
+    const validationEmail = (email) => {
+        const regex = /\S+@\S+\.\S+/.test(email);
+        
+        return regex;
+    }
 
+    const validatePassword = (password) => {
+        const hasUpperCase = /[A-Z]/.test(password); 
+        const hasLowerCase = /[a-z]/.test(password); 
+        const hasNumber = /\d/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
+
+        const isValidLength = password.length >= 6;
+      
+        return hasUpperCase && hasLowerCase && hasNumber && isValidLength && hasSpecialChar;
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'email') {
+          setEmail(value);
+        } else if (name === 'password') {
+          setPassword(value);
+        }
+
+        setIsButtonDisabled(!(validationEmail(email)&&validatePassword(password)));
+    }
+    
     // let check;
     const handleLogin=async()=>{
         try{
@@ -29,12 +56,10 @@ function Login() {
                 // check=
                 navigate('/router')
                 // setCheck(true);
-          window.location.reload();
-
-
+                window.location.reload();
                 // check=true;
             }else{
-                alert("Dang nhap that bai")
+                alert("Dang nhap that bai");
             }
         }catch(e){
             console.log(e)
@@ -50,19 +75,19 @@ function Login() {
             </div>
 
             <div className='input-UserName'>
-                <input type='text' onChange={(e)=>setEmail(e.target.value)}
+                <input type='text' onChange={handleInputChange}
                 placeholder="Số điện thoại, tên người dùng hoặc email">
 
                 </input>
             </div>
 
             <div className='input-PassUser'>
-                  <input onChange={(e)=>setPassword(e.target.value)} type='password' className='' placeholder="Mật Khẩu"></input>
+                  <input onChange={handleInputChange} type='password' className='' placeholder="Mật Khẩu"></input>
             </div>
 
             <div className='box-button-login'>
-                    <button onClick={handleLogin}>
-                        <a className='button-login' >Đăng nhập</a>
+                    <button onClick={handleLogin} disabled={isButtonDisabled}>
+                        <a className='button-login'>Đăng nhập</a>
                     </button>
             </div>
 
