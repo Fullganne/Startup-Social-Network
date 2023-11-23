@@ -62,7 +62,8 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                 formData
             );
             console.log(response);
-            console.log("url cần thêm: " + response.data.url);
+            setUrl(response.data.url);
+            console.log("url: " + response.data.url);
             return response.data.url; // return the URL
         } catch (error) {
             console.error("Error uploading image:", error);
@@ -76,14 +77,6 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
             setCloseModal(false);
         }
     }, [isPosted, setCloseModal]);
-
-    useEffect(() => {
-        setPreviewImage("");
-        setPostContent("");
-        setSelectedOption("Công khai");
-        setImageSelected(null);
-        setIsPosted(false);
-    }, [isOpen]);
 
     return (
         <>

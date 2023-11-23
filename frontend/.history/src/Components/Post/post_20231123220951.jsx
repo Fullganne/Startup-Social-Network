@@ -93,9 +93,16 @@ const PostCard = ({ data, handleFetchPost }) => {
                             height: 0,
                         }}
                     >
-                        <Image
-                            cloudName="da0ikowpn"
-                            publicId={data.image}
+                        {imageSelected && (
+                            <Image
+                                cloudName="da0ikowpn"
+                                //! here
+                                publicId={previewImage}
+                                className="h-[100%] w-[100%]"
+                                alt="Post Upload"
+                            />
+                        )}
+                        <img
                             className="w-full"
                             style={{
                                 position: "absolute",
@@ -105,7 +112,8 @@ const PostCard = ({ data, handleFetchPost }) => {
                                 height: "100%",
                                 objectFit: "cover", // Add this line
                             }}
-                            alt="Post Upload"
+                            src={data.image}
+                            alt=""
                         />
                     </div>
                 )}
