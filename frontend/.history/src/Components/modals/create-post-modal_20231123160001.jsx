@@ -6,9 +6,8 @@ import { UserContext } from "../../Context/UserContext";
 
 const CreatPostModal = ({ isOpen, setCloseModal }) => {
     const [previewImage, setPreviewImage] = useState();
-    const [postContent, setPostContent] = useState("");
+    const [postContent, setPostContent] = useState("Nội dung");
     const [selectedOption, setSelectedOption] = useState("Công khai");
-    const [isPosted, setIsPosted] = useState(false); // Thêm state mới để kiểm tra xem đã đăng bài thành công chưa
 
     const { userData } = useContext(UserContext);
     const userId = userData.id;
@@ -39,21 +38,11 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                 like: 0,
                 likedUsers: "",
             });
-            alert("Đăng bài thành công");
             console.log("Post added successfully:", response.data);
-            setIsPosted(true); // Đánh dấu là đã đăng bài thành công
         } catch (error) {
-            alert("Đăng bài thất bại");
             console.error("Error adding post:", error);
         }
     };
-
-    useEffect(() => {
-        if (isPosted) {
-            // Nếu đã đăng bài thành công, ẩn component
-            setCloseModal(false);
-        }
-    }, [isPosted, setCloseModal]);
 
     return (
         <>
@@ -98,8 +87,6 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                                 className="min-w-[485px] min-h-[70px] mt-[10px] m-2 "
                                 placeholder=" Bạn đang nghĩ gì..."
                                 name="content"
-                                value={postContent}
-                                onChange={handleContentChange}
                             />
                             <div className="h-[350px] relative p-2">
                                 {previewImage && (

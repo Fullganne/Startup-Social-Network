@@ -48,13 +48,6 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
         }
     };
 
-    useEffect(() => {
-        if (isPosted) {
-            // Nếu đã đăng bài thành công, ẩn component
-            setCloseModal(false);
-        }
-    }, [isPosted, setCloseModal]);
-
     return (
         <>
             {isOpen && (

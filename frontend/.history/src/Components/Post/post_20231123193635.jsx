@@ -84,29 +84,26 @@ const PostCard = ({ data, handleFetchPost }) => {
                     </div>
                 </div>
                 <div className="pl-[20px] mb-[10px]">{data?.noidung}</div>
-                {data?.image && (
-                    <div
+                <div
+                    style={{
+                        position: "relative",
+                        paddingBottom: "56.25%",
+                        height: 0,
+                    }}
+                >
+                    <img
+                        className="w-full"
                         style={{
-                            position: "relative",
-                            paddingBottom: "56.25%",
-                            height: 0,
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
                         }}
-                    >
-                        <img
-                            className="w-full"
-                            style={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover", // Add this line
-                            }}
-                            src={data.image}
-                            alt=""
-                        />
-                    </div>
-                )}
+                        src={data?.image}
+                        alt=""
+                    />
+                </div>
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center space-x-2 ">
                         {/* {isPostLiked? <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostUnLiked}/>:<AiOutlineHeart className='text-xl hover:opacity-50 cursor-pointer' onClick={handlePostLiked}/>} */}
