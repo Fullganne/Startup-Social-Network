@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./post.css";
 import { Link } from "react-router-dom";
-import { Image } from "cloudinary-react";
 import {
     BsThreeDots,
     BsBookmarkFill,
@@ -24,6 +23,25 @@ const PostCard = ({ data, handleFetchPost }) => {
     const [isSaved, setIsSaved] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { userData, handleFetchUsers } = useContext(UserContext);
+    const [imageUrl, setImageUrl] = useState(null);
+
+    useEffect(() => {
+        // Create an image element
+        const image = new Image();
+
+        // Set the src attribute to the blob URL
+        image.src = data.image;
+
+        // Set the image URL state once the image is loaded
+        image.onload = () => {
+            setImageUrl(image.src);
+        };
+
+        return () => {
+            // Clean up the blob URL when the component is unmounted
+            URL.revokeObjectURL(image.src);
+        };
+    }, [data.image]);
 
     const handleSavePost = () => {
         setIsSaved(!isSaved);
@@ -85,30 +103,11 @@ const PostCard = ({ data, handleFetchPost }) => {
                     </div>
                 </div>
                 <div className="pl-[20px] mb-[10px]">{data?.noidung}</div>
-                {data?.image && (
-                    <div
-                        style={{
-                            position: "relative",
-                            paddingBottom: "56.25%",
-                            height: 0,
-                        }}
-                    >
-                        <Image
-                            cloudName="da0ikowpn"
-                            publicId={data.image}
-                            className="w-full"
-                            style={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover", // Add this line
-                            }}
-                            alt="Post Upload"
-                        />
-                    </div>
-                )}
+                <div className="w-full">
+                    {imageUrl && (
+                        <img className="w-full" src={imageUrl} alt="" />
+                    )}
+                </div>
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center space-x-2 ">
                         {/* {isPostLiked? <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostUnLiked}/>:<AiOutlineHeart className='text-xl hover:opacity-50 cursor-pointer' onClick={handlePostLiked}/>} */}

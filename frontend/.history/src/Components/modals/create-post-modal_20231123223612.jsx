@@ -77,14 +77,6 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
         }
     }, [isPosted, setCloseModal]);
 
-    useEffect(() => {
-        setPreviewImage("");
-        setPostContent("");
-        setSelectedOption("Công khai");
-        setImageSelected(null);
-        setIsPosted(false);
-    }, [isOpen]);
-
     return (
         <>
             {isOpen && (

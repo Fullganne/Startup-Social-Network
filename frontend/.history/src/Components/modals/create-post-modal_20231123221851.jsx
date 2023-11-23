@@ -13,6 +13,7 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
     const [isPosted, setIsPosted] = useState(false); // Thêm state mới để kiểm tra xem đã đăng bài thành công chưa
     const [imageSelected, setImageSelected] = useState(null);
     const { userData } = useContext(UserContext);
+    const [url, setUrl] = useState(null);
     const userId = userData.id;
 
     const handleOptionChange = (event) => {
@@ -28,16 +29,16 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
         setPostContent(value);
     };
 
-    const handleAddPost = async (imageUrl) => {
+    const handleAddPost = async () => {
         try {
-            console.log("URL đang lưu " + postContent + " : " + imageUrl);
+            console.log("URL đang lưu " + postContent + ":" + url);
             const response = await postService.addPost({
                 id_post: uuid4(),
                 user: {
                     id: userId,
                 },
                 noidung: postContent,
-                image: imageUrl,
+                image: url,
                 privacy: selectedOption,
                 like: 0,
                 likedUsers: "",
@@ -52,22 +53,19 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
     };
 
     const uploadImage = async () => {
+        console.log(imageSelected);
         const formData = new FormData();
         formData.append("file", imageSelected);
         formData.append("upload_preset", "umbkkwi4");
 
-        try {
-            const response = await Axios.post(
-                "https://api.cloudinary.com/v1_1/da0ikowpn/image/upload",
-                formData
-            );
+        Axios.post(
+            "https://api.cloudinary.com/v1_1/da0ikowpn/image/upload",
+            formData
+        ).then((response) => {
             console.log(response);
-            console.log("url cần thêm: " + response.data.url);
-            return response.data.url; // return the URL
-        } catch (error) {
-            console.error("Error uploading image:", error);
-            throw error; // rethrow the error
-        }
+            console.log("url: " + response.data.url);
+            setUrl(response.data.url);
+        });
     };
 
     useEffect(() => {
@@ -76,14 +74,6 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
             setCloseModal(false);
         }
     }, [isPosted, setCloseModal]);
-
-    useEffect(() => {
-        setPreviewImage("");
-        setPostContent("");
-        setSelectedOption("Công khai");
-        setImageSelected(null);
-        setIsPosted(false);
-    }, [isOpen]);
 
     return (
         <>
@@ -165,13 +155,9 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                                 className="rounded-xl bg-indigo-500 font-bold text-white w-[485px] m-2 h-[45px]"
                                 onClick={async (e) => {
                                     console.log("Đang xử lý");
-                                    try {
-                                        const imageUrl = await uploadImage();
-                                        await handleAddPost(imageUrl);
-                                        console.log("Đã xong");
-                                    } catch (error) {
-                                        console.error("Error:", error);
-                                    }
+                                    await uploadImage();
+                                    await handleAddPost();
+                                    console.log("Đã xong");
                                 }} // Add onClick event handler
                             >
                                 Đăng

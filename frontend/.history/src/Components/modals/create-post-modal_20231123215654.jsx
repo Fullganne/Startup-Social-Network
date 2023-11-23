@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import postService from "../../services/postService";
 import uuid4 from "uuid4";
-
+import { Image } from "cloudinary-react";
 import { UserContext } from "../../Context/UserContext";
 import Axios from "axios";
 
@@ -19,25 +19,40 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
         setSelectedOption(event.target.value);
     };
 
-    const handleOnChange = (e) => {
-        setPreviewImage(URL.createObjectURL(e.target.files[0]));
+    const uploadImage = async () => {
+        console.log(imageSelected);
+        const formData = new FormData();
+        formData.append("file", imageSelected);
+        formData.append("upload_preset", "umbkkwi4");
+
+        Axios.post(
+            "https://api.cloudinary.com/v1_1/da0ikowpn/image/upload",
+            formData
+        ).then((response) => {
+            console.log(response);
+            console.log(response.data.url);
+            setPreviewImage(response.data.url);
+        });
     };
+
+    // const handleOnChange = (e) => {
+    //     setPreviewImage(URL.createObjectURL(e.target.files[0]));
+    // };
 
     const handleContentChange = (event) => {
         const value = event.target.value;
         setPostContent(value);
     };
 
-    const handleAddPost = async (imageUrl) => {
+    const handleAddPost = async () => {
         try {
-            console.log("URL đang lưu " + postContent + " : " + imageUrl);
             const response = await postService.addPost({
                 id_post: uuid4(),
                 user: {
                     id: userId,
                 },
                 noidung: postContent,
-                image: imageUrl,
+                image: previewImage,
                 privacy: selectedOption,
                 like: 0,
                 likedUsers: "",
@@ -51,39 +66,12 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
         }
     };
 
-    const uploadImage = async () => {
-        const formData = new FormData();
-        formData.append("file", imageSelected);
-        formData.append("upload_preset", "umbkkwi4");
-
-        try {
-            const response = await Axios.post(
-                "https://api.cloudinary.com/v1_1/da0ikowpn/image/upload",
-                formData
-            );
-            console.log(response);
-            console.log("url cần thêm: " + response.data.url);
-            return response.data.url; // return the URL
-        } catch (error) {
-            console.error("Error uploading image:", error);
-            throw error; // rethrow the error
-        }
-    };
-
     useEffect(() => {
         if (isPosted) {
             // Nếu đã đăng bài thành công, ẩn component
             setCloseModal(false);
         }
     }, [isPosted, setCloseModal]);
-
-    useEffect(() => {
-        setPreviewImage("");
-        setPostContent("");
-        setSelectedOption("Công khai");
-        setImageSelected(null);
-        setIsPosted(false);
-    }, [isOpen]);
 
     return (
         <>
@@ -132,9 +120,11 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                                 onChange={handleContentChange}
                             />
                             <div className="h-[350px] relative p-2">
-                                {previewImage && (
-                                    <img
-                                        src={previewImage}
+                                {imageSelected && (
+                                    <Image
+                                        cloudName="da0ikowpn"
+                                        //! here
+                                        publicId={previewImage}
                                         className="h-[100%] w-[100%]"
                                         alt="Post Upload"
                                     />
@@ -155,23 +145,15 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                                     id="file"
                                     name="file"
                                     onChange={(e) => {
-                                        console.log("Đã chọn hình");
                                         setImageSelected(e.target.files[0]);
-                                        handleOnChange(e);
                                     }}
                                 />
                             </div>
                             <button
                                 className="rounded-xl bg-indigo-500 font-bold text-white w-[485px] m-2 h-[45px]"
                                 onClick={async (e) => {
-                                    console.log("Đang xử lý");
-                                    try {
-                                        const imageUrl = await uploadImage();
-                                        await handleAddPost(imageUrl);
-                                        console.log("Đã xong");
-                                    } catch (error) {
-                                        console.error("Error:", error);
-                                    }
+                                    await uploadImage();
+                                    await handleAddPost();
                                 }} // Add onClick event handler
                             >
                                 Đăng
