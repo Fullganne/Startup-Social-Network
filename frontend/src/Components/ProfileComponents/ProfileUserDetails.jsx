@@ -13,55 +13,40 @@ const ProfileUserDetails = () => {
     // console.log("URL: " + userData.avatar);
     return (
         <div className="py-10 w-full">
-            <div className="flex items-center">
-                <div
-                    className="w-[15%]"
-                    style={{
-                        position: "relative",
-                        paddingBottom: "12.25%",
-                        height: 0,
-                    }}
-                >
+            <div className="flex items-center flex-wrap">
+                <div className="w-[50%] relative flex mb-[12.25%] items-center justify-center">
                     <Image
                         cloudName="da0ikowpn"
                         // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
                         publicId={userData.avatar}
-                        className="w-32 h-32 rounded-full"
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                        }}
+                        className="block float-right object-cover w-64 h-64 rounded-full"
                         alt="Avatar"
                     />
                 </div>
-                <div className="space-y-5">
+                <div className="space-y-5 w-[50%] h-[400px]">
                     <div className="flex space-x-10 items-center">
-                        <p>{userData?.username}</p>
-                        <button onClick={onOpen}>Edit Profile</button>
+                        <p className="text-2xl">{userData?.username}</p>
+                        <button className="bg-gray-400/20 rounded-lg py-2 px-5 hover:bg-gray-400/30 text-lg font-semibold" onClick={onOpen}>Edit Profile</button>
                         <TbSettingsFilled></TbSettingsFilled>
                     </div>
                     <div className="flex space-x-10">
                         <div>
-                            <span className="font-semibold mr-2">
+                            <span className="text-lg font-semibold mr-2">
                                 {userData?.number_post}
                             </span>
-                            <span>posts</span>
+                            <span className="text-lg">posts</span>
                         </div>
                         <div>
-                            <span className="font-semibold mr-2">
+                            <span className="text-lg font-semibold mr-2">
                                 {userData?.number_following}
                             </span>
-                            <span>following</span>
+                            <span className="text-lg">following</span>
                         </div>
                         <div>
-                            <span className="font-semibold mr-2">
+                            <span className="text-lg font-semibold mr-2">
                                 {userData?.number_followed}
                             </span>
-                            <span>followed</span>
+                            <span className="text-lg">followed</span>
                         </div>
                     </div>
                 </div>

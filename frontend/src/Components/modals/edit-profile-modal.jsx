@@ -77,7 +77,7 @@ function EditProfileModal({ isOpen, onClose }) {
                         <div className="flex items-center justify-center mb-5 flex-col">
                             <img
                                 width={100}
-                                className="rounded-full"
+                                className="block float-right object-cover w-32 h-32 rounded-full"
                                 src={
                                     userData.avatar ||
                                     "https://lh3.googleusercontent.com/u/0/drive-viewer/AK7aPaAJIDucKftY7-i33wKHSqG4m1WYctmHDPrc_LNd2SzuuaZzNXtTM7H3oMbD9VjdBGjsl47owQl_REnpAi7HrpgqiVp4sQ=w1910-h922"

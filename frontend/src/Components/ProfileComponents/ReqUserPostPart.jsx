@@ -45,7 +45,7 @@ const ReqUserPostPart = () => {
     console.log("ds post ne: ", dataPost);
     return (
         <div>
-            <div className="tab flex space-x-14 border-t relative">
+            <div className="tab flex items-center justify-center space-x-16 border-t relative">
                 {tabs.map((item) => (
                     <div
                         onClick={() => setActiveTab(item.tab)}
@@ -53,7 +53,7 @@ const ReqUserPostPart = () => {
                             activeTab === item.tab
                                 ? "border-t border-black"
                                 : "opacity-60"
-                        } flex items-center cursor-pointer py-2 text-md`}
+                        } flex items-center cursor-pointer py-2 text-md font-semibold`}
                     >
                         {/* <Link to={item.link}> */}
                         <p>{item.icon}</p>
