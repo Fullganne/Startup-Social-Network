@@ -81,11 +81,11 @@ const SignUp = () => {
 
             if (Object.keys(validationErrors).length === 0) {
                 const newUser = await userService.signupUser({
-                    id: uuid4().substring(0, 8),
+                    id: uuid4(),
                     username: username,
                     email: email,
                     password: password,
-                    avatar: "http://res.cloudinary.com/da0ikowpn/image/upload/v1700813395/dvbvfdvgivwokdx3ub4p.jpg",
+                    avatar: "https://st.quantrimang.com/photos/image/2021/05/21/AVT-Doi16-4.jpg",
                 });
 
                 setEmail("");

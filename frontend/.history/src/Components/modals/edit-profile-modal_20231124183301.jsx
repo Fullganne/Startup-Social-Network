@@ -69,7 +69,6 @@ function EditProfileModal({ isOpen, onClose }) {
             }
 
             if (Object.keys(updatedUserData).length > 0) {
-                console.log(updatedUserData);
                 const response = await userService.updateById(
                     userData.id,
                     updatedUserData

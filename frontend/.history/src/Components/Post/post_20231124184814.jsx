@@ -27,7 +27,7 @@ const PostCard = ({ data, handleFetchPost }) => {
 
     useEffect(() => {
         // Move your logic here
-        if (data.likedUsers.split(";").includes(userData.id)) {
+        if (data.likedUsers.split(";").includes(userData.username)) {
             setLike(true);
         } else {
             setLike(false);
@@ -36,12 +36,12 @@ const PostCard = ({ data, handleFetchPost }) => {
         console.log("Data");
         console.log(data);
 
-        let id = userData.id;
+        let username = userData.username;
         let likedUser = data.likedUsers || "";
-        console.log("Username: " + id);
+        console.log("Username: " + username);
         console.log("Liked user: " + likedUser);
         console.log("Like: " + like);
-    }, [data.likedUsers, userData.id]);
+    }, [data.likedUsers, userData.username]);
 
     const handleSavePost = () => {
         setIsSaved(!isSaved);
@@ -51,6 +51,21 @@ const PostCard = ({ data, handleFetchPost }) => {
         onOpen();
     };
     const handlePostLiked = async () => {
+        // let username = userData.username;
+        // let likedUser = data.likedUsers || "";
+        // console.log("Username: " + username);
+        // console.log("Liked user: " + likedUser);
+        // if (username == null || likedUser == null) return;
+        // let likedUserArray = likedUser.split(";");
+        // setLike(likedUserArray.includes(username));
+
+        // if (
+        //     data.likedUsers &&
+        //     data.likedUsers.split(";").includes(userData.username)
+        // ) {
+        //     setLike(true);
+        // }
+
         if (like == false) {
             console.log("Xử lí like");
             await postService.likePost(data.id_post, userData.id);
