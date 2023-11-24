@@ -3,7 +3,7 @@ import { UserContext } from "../../Context/UserContext";
 import { Image } from "cloudinary-react";
 import followService from "../../services/followService";
 
-const SuggestionCard = ({ user, key }) => {
+const SuggestionCard = ({ user }) => {
     const { userData, handleFetchUsers } = useContext(UserContext);
     const [id, setId] = useState(user.id);
 
@@ -19,7 +19,7 @@ const SuggestionCard = ({ user, key }) => {
     };
 
     return (
-        <div key={user.id}>
+        <div>
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <div>

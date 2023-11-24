@@ -6,7 +6,8 @@ import userService from "../../services/userService";
 const HomeRight = () => {
     const { userData, handleFetchUsers } = useContext(UserContext);
     const [user, setUser] = useState(userData);
-    const [followings, setFollowings] = useState(null); // Corrected this line
+    const [followings, setFollowings] = useState(null);
+
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -16,7 +17,6 @@ const HomeRight = () => {
                 setUsers(response.data); // Assuming the data is in the 'data' property
 
                 response = await userService.getFollowings(userData.id);
-                console.log("Followings API Response:", response); // Add this line
                 setFollowings(response);
                 console.log("Following");
                 console.log(response);
@@ -26,7 +26,7 @@ const HomeRight = () => {
         };
 
         fetchData();
-    }, [followings]); // Added userData.id to the dependency array
+    }, []); // Empty dependency array to run only once when the component mounts
 
     useEffect(() => {
         // Update user state when userData changes
