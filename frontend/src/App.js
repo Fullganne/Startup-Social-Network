@@ -10,10 +10,13 @@ import ListPost from './Components/ProfileComponents/ListPost';
 import ImagePost from './Components/ProfileComponents/ImagePost';
 import SearchCard from './Components/search/search';
 import SearchPage from './Pages/Search/searchPage';
+import { useEffect } from 'react';
 
 
 function App() {
-  
+  useEffect(() => {
+    document.title = 'Jampgram';
+  }, []);
   return (
     <AppProvider>
     <div>

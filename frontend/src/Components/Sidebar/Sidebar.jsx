@@ -107,14 +107,14 @@ const Sidebar = () => {
 
   return (
     <div className="sticky top-0 h-[100vh]">
-      <div className="flex flex-col justify-between h-full px-8">
-        <div>
+      <div className="flex flex-col justify-between h-full">
+        <div className='px-3'>
           <div className="pt-10">
             <img className="w-25" src='https://i.imgur.com/zqpwkLQ.png' alt='' />
           </div>
           <div className="mt-10">
               {mainu.map((item)=> (
-                <div onClick={()=>handleTabClick(item.title)} className="flex items-center mb-8 cursor-pointer text-lg">
+                <div onClick={()=>handleTabClick(item.title)} className="flex items-center py-5 px-5 hover:bg-slate-400/[0.1] rounded-lg cursor-pointer text-lg">
                   {activeTab===item.title? item.iactiveIcon:item.icon}
                   <p className={`${activeTab===item.title?"font-bold":"font-normal"}`}>{item.title}</p>
                 </div>
@@ -125,12 +125,12 @@ const Sidebar = () => {
           isOpen={isOpenModalPost}
           setCloseModal={setIsOpenModalPost}
         />
-        <div className="flex relative items-center cursor-pointer" onClick={() => setIsOpenModalMore(true)}>
+        <div className="flex relative items-center cursor-pointer px-3" onClick={() => setIsOpenModalMore(true)}>
           <More
             isOpen={isOpenModalMore}
             setCloseMore={setIsOpenModalMore}
           />
-          <div className='flex relative items-center py-5 rounded-3xl w-full hover:bg-slate-400/[0.1]'>
+          <div className='flex relative items-center py-5 px-5 rounded-xl w-full hover:bg-slate-400/[0.1]'>
             <AiOutlineMenu className='text-3xl mr-5 '/>
             <p className="flex items-center cursor-pointer text-lg">More</p>
           </div>

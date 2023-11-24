@@ -86,7 +86,7 @@ function Login() {
             <div className='box-signup'>
                 <p>Bạn không có tài Khoản?&nbsp;</p>
                 <Link to={"/signup"}>
-                    <p>Đăng kí</p>
+                    <p className='hover:font-semibold hover:text-lg'>Đăng kí</p>
                 </Link>
             </div>
     </div>
