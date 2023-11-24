@@ -11,14 +11,14 @@ const SearchUser = ({ dataUser }) => {
                         cloudName="da0ikowpn"
                         publicId={dataUser.avatar}
                         className="ml-2 w-14 h-14 rounded-full"
-                        // style={{
-                        //     position: "absolute",
-                        //     top: 0,
-                        //     left: 0,
-                        //     width: "100%",
-                        //     height: "100%",
-                        //     objectFit: "cover", // Add this line
-                        // }}
+                        style={{
+                            // position: "absolute",
+                            // top: 0,
+                            // left: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover", // Add this line
+                        }}
                         alt="Avatar"
                     />
                     {/* <img  src="https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_960_720.jpg" alt="" /> */}

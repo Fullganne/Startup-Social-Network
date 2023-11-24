@@ -16,7 +16,6 @@ const HomeRight = () => {
                 setUsers(response.data); // Assuming the data is in the 'data' property
 
                 response = await userService.getFollowings(userData.id);
-                console.log("Followings API Response:", response); // Add this line
                 setFollowings(response);
                 console.log("Following");
                 console.log(response);
@@ -26,7 +25,7 @@ const HomeRight = () => {
         };
 
         fetchData();
-    }, [followings]); // Added userData.id to the dependency array
+    }, [userData.id]); // Added userData.id to the dependency array
 
     useEffect(() => {
         // Update user state when userData changes
