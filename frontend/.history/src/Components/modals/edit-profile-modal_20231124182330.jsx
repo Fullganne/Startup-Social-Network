@@ -45,40 +45,15 @@ function EditProfileModal({ isOpen, onClose }) {
     const handleUpdateUser = async (imageUrl) => {
         try {
             console.log("URL đang lưu: " + imageUrl);
-
-            const updatedUserData = {};
-
-            // Kiểm tra và thêm trường email nếu không trống
-            if (email) {
-                updatedUserData.email = email;
-            }
-
-            // Kiểm tra và thêm trường username nếu không trống
-            if (name) {
-                updatedUserData.username = name;
-            }
-
-            // Kiểm tra và thêm trường password nếu không trống
-            if (password) {
-                updatedUserData.password = password;
-            }
-
-            // Kiểm tra và thêm trường avatar nếu không trống
-            if (imageUrl) {
-                updatedUserData.avatar = imageUrl;
-            }
-
-            if (Object.keys(updatedUserData).length > 0) {
-                console.log(updatedUserData);
-                const response = await userService.updateById(
-                    userData.id,
-                    updatedUserData
-                );
-                alert("Cập nhật thành công");
-                console.log("Post added successfully:", response.data);
-            } else {
-                alert("Không có dữ liệu để cập nhật");
-            }
+            const response = await userService.updateById(userData.id, {
+                // id: userData.id,
+                email: email,
+                username: name,
+                password: password,
+                avatar: imageUrl,
+            });
+            alert("Cập nhật thành công");
+            console.log("Post added successfully:", response.data);
         } catch (error) {
             alert("Cập nhật thất bại");
             console.error("Error adding post:", error);
@@ -88,12 +63,6 @@ function EditProfileModal({ isOpen, onClose }) {
     const handleOnChange = (e) => {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     };
-
-    useEffect(() => {
-        if (!isOpen) {
-            setPreviewImage(null);
-        }
-    }, [isOpen]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -109,8 +78,11 @@ function EditProfileModal({ isOpen, onClose }) {
                         <div className="flex items-center justify-center mb-5 flex-col">
                             <img
                                 width={100}
-                                className="block float-right object-cover w-32 h-32 rounded-full"
-                                src={previewImage || userData.avatar}
+                                className="rounded-full"
+                                src={
+                                    userData.avatar ||
+                                    "https://lh3.googleusercontent.com/u/0/drive-viewer/AK7aPaAJIDucKftY7-i33wKHSqG4m1WYctmHDPrc_LNd2SzuuaZzNXtTM7H3oMbD9VjdBGjsl47owQl_REnpAi7HrpgqiVp4sQ=w1910-h922"
+                                }
                                 alt="Avatar"
                             />
                             <label

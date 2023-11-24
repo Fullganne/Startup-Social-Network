@@ -119,6 +119,17 @@ const SignUp = () => {
                             Đăng ký để xem ảnh và video từ bạn bè.
                         </label>{" "}
                     </div>
+                    <div class="">
+                        <button
+                            class=""
+                            type="submit"
+                            tabindex="0"
+                            style={{ border: "none" }}
+                        >
+                            {" "}
+                            <BsFacebook /> Đăng nhập bằng Facebook
+                        </button>
+                    </div>
                     <div className="total-underline">
                         <div className="underline"></div>
                         <div className="" style={{ margin: "0 18px 18px " }}>
@@ -218,7 +229,7 @@ const SignUp = () => {
                 <div className="outline">
                     <label>Đã có tài khoản?&nbsp;</label>
                     <Link to={"/login"}>
-                        <label className='hover:font-semibold hover:text-lg'>Đăng nhập</label>
+                        <label>Đăng nhập</label>
                     </Link>
                 </div>
             </div>

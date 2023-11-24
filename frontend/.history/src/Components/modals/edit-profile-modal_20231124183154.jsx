@@ -69,7 +69,6 @@ function EditProfileModal({ isOpen, onClose }) {
             }
 
             if (Object.keys(updatedUserData).length > 0) {
-                console.log(updatedUserData);
                 const response = await userService.updateById(
                     userData.id,
                     updatedUserData
@@ -89,12 +88,6 @@ function EditProfileModal({ isOpen, onClose }) {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     };
 
-    useEffect(() => {
-        if (!isOpen) {
-            setPreviewImage(null);
-        }
-    }, [isOpen]);
-
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -109,7 +102,7 @@ function EditProfileModal({ isOpen, onClose }) {
                         <div className="flex items-center justify-center mb-5 flex-col">
                             <img
                                 width={100}
-                                className="block float-right object-cover w-32 h-32 rounded-full"
+                                className="rounded-full"
                                 src={previewImage || userData.avatar}
                                 alt="Avatar"
                             />

@@ -81,11 +81,11 @@ const SignUp = () => {
 
             if (Object.keys(validationErrors).length === 0) {
                 const newUser = await userService.signupUser({
-                    id: uuid4().substring(0, 8),
+                    id: uuid4(),
                     username: username,
                     email: email,
                     password: password,
-                    avatar: "http://res.cloudinary.com/da0ikowpn/image/upload/v1700813395/dvbvfdvgivwokdx3ub4p.jpg",
+                    avatar: "https://st.quantrimang.com/photos/image/2021/05/21/AVT-Doi16-4.jpg",
                 });
 
                 setEmail("");
@@ -118,6 +118,17 @@ const SignUp = () => {
                         <label>
                             Đăng ký để xem ảnh và video từ bạn bè.
                         </label>{" "}
+                    </div>
+                    <div class="">
+                        <button
+                            class=""
+                            type="submit"
+                            tabindex="0"
+                            style={{ border: "none" }}
+                        >
+                            {" "}
+                            <BsFacebook /> Đăng nhập bằng Facebook
+                        </button>
                     </div>
                     <div className="total-underline">
                         <div className="underline"></div>
@@ -218,7 +229,7 @@ const SignUp = () => {
                 <div className="outline">
                     <label>Đã có tài khoản?&nbsp;</label>
                     <Link to={"/login"}>
-                        <label className='hover:font-semibold hover:text-lg'>Đăng nhập</label>
+                        <label>Đăng nhập</label>
                     </Link>
                 </div>
             </div>

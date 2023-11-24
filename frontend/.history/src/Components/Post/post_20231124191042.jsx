@@ -75,14 +75,14 @@ const PostCard = ({ data, handleFetchPost }) => {
 
     return (
         <div>
-            <div className="border rounded-md w-full my-10">
+            <div className="border rounded-md w-full mt-20">
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center">
                         <Image
                             cloudName="da0ikowpn"
                             // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
                             publicId={userData.avatar}
-                            className="block float-right object-cover w-14 h-14 rounded-full"
+                            className="h-12 w-12 rounded-full"
                             alt="Avatar"
                         />
 
