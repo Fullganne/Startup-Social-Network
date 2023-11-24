@@ -1,3 +1,5 @@
+
+
 // import React, { useState , useEffect} from 'react'
 // import './Login.css'
 // import { Link, useNavigate } from 'react-router-dom';
@@ -118,6 +120,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../Assets/logo.png'
 import userService from '../../services/userService';
+import { useDisclosure } from '@chakra-ui/react';
+import ModalResetPassword from './modalResetPassword';
 
 function Login() {
     const navigate=useNavigate()
@@ -125,6 +129,7 @@ function Login() {
     const [password,setPassword]=useState('');
     const [check, setCheck] = useState(false); 
 
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     // let check;
     const handleLogin=async()=>{
@@ -153,7 +158,9 @@ function Login() {
             alert("Dang nhap that bai")
         }
     }
-   
+    const handleOpenModel=()=>{
+        onOpen()
+    };
   return (
     <div className='login-container'>
         <div className='box-outline'>
@@ -178,9 +185,11 @@ function Login() {
                     </button>
             </div>
 
-            <div className='text-forgotPass'>
-                {/* <a className='forgot-pass' href='#'>Quên Mật Khẩu?</a> */}
-            </div>
+            <br/>
+            <div className='text-forgotPass' onClick={handleOpenModel}>
+    Quên Mật Khẩu?
+</div>
+
         </div>
             <div className='box-signup'>
                 <p>Bạn Không có tài Khoản?&nbsp;</p>
@@ -188,8 +197,13 @@ function Login() {
                     <p>Đăng kí</p>
                 </Link>
             </div>
+            {/* {used==="user"?<ModelUser handleUpdatePost={handleUpdatePost} handleDeletePost={handleDeletePost} isOpen={isOpen} onClose={onClose}/>:<ModelGuess isOpen={isOpen} onClose={onClose}/>} */}
+{<ModalResetPassword isOpen={isOpen} onClose={onClose}/>}
     </div>
   );
 };
 
 export default Login;
+
+
+

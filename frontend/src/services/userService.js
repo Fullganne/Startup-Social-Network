@@ -25,7 +25,12 @@ const userService={
     getUserNotId:(id)=>axios.create({
         baseURL: USER_ENDPOINT,
         timeout: 5000,
-    }).get(`/notid/${id}`)
+    }).get(`/notid/${id}`),
+
+    getUserByEmail:(email)=>axios.create({
+        baseURL: USER_ENDPOINT,
+        timeout: 5000,
+    }).get(`getbyemail/${email}`)
     
 }
 
