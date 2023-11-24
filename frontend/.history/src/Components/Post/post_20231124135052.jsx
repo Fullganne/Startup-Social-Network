@@ -27,10 +27,10 @@ const PostCard = ({ data, handleFetchPost }) => {
 
     useEffect(() => {
         // Move your logic here
+        // if(data.likedUsers == null) data.likedUsers = "";
+
         if (data.likedUsers.split(";").includes(userData.username)) {
             setLike(true);
-        } else {
-            setLike(false);
         }
 
         console.log("Data");

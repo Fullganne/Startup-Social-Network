@@ -15,8 +15,9 @@ import { UserContext } from "../../Context/UserContext";
 import { Image } from "cloudinary-react";
 
 function EditProfileModal({ isOpen, onClose }) {
-    const [previewAvatar, setPreviewAvatar] = useState(null);
+    const [previewAvatar, setPreviewAvatar] = useState();
     const [imageSelected, setImageSelected] = useState(null);
+    const [isUpdated, setIsUpdated] = useState(false); // Thêm state mới để kiểm tra xem đã đăng bài thành công chưa
     const { userData, handleFetchUsers } = useContext(UserContext);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -53,6 +54,7 @@ function EditProfileModal({ isOpen, onClose }) {
             });
             alert("Cập nhật thành công");
             console.log("Post added successfully:", response.data);
+            setIsUpdated(true); // Đánh dấu là đã đăng bài thành công
         } catch (error) {
             alert("Cập nhật thất bại");
             console.error("Error adding post:", error);
@@ -62,6 +64,12 @@ function EditProfileModal({ isOpen, onClose }) {
     const handleOnChange = (e) => {
         setPreviewAvatar(URL.createObjectURL(e.target.files[0]));
     };
+
+    useEffect(() => {
+        if (isUpdated) {
+            handleFetchUsers();
+        }
+    }, [isUpdated]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -79,7 +87,7 @@ function EditProfileModal({ isOpen, onClose }) {
                                 width={100}
                                 className="rounded-full"
                                 src={
-                                    userData.avatar ||
+                                    previewAvatar ||
                                     "https://lh3.googleusercontent.com/u/0/drive-viewer/AK7aPaAJIDucKftY7-i33wKHSqG4m1WYctmHDPrc_LNd2SzuuaZzNXtTM7H3oMbD9VjdBGjsl47owQl_REnpAi7HrpgqiVp4sQ=w1910-h922"
                                 }
                                 alt="Avatar"
@@ -164,24 +172,17 @@ function EditProfileModal({ isOpen, onClose }) {
                         onClick={async (e) => {
                             console.log("Đang xử lý");
                             try {
-                                let imageUrl = null;
-                                if (imageSelected == null) {
-                                    imageUrl = userData.avatar;
-                                } else {
-                                    imageUrl = await uploadImage();
-                                }
-
+                                const imageUrl = await uploadImage();
                                 await handleUpdateUser(imageUrl);
                                 console.log("Đã xong");
 
                                 onClose();
                                 setPreviewAvatar(null);
                                 setImageSelected(null);
+                                setIsUpdated(false);
                                 setName("");
                                 setEmail("");
                                 setPassword("");
-
-                                handleFetchUsers();
                             } catch (error) {
                                 console.error("Error:", error);
                             }

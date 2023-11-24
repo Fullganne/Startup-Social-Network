@@ -10,7 +10,7 @@ const ProfileUserDetails = () => {
 
     const { userData, handleFetchUsers } = useContext(UserContext);
     // handleFetchUsers();
-    // console.log("URL: " + userData.avatar);
+    console.log("URL: " + userData.avatar);
     return (
         <div className="py-10 w-full">
             <div className="flex items-center">

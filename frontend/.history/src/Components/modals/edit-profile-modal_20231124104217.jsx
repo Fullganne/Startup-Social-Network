@@ -15,7 +15,7 @@ import { UserContext } from "../../Context/UserContext";
 import { Image } from "cloudinary-react";
 
 function EditProfileModal({ isOpen, onClose }) {
-    const [previewAvatar, setPreviewAvatar] = useState(null);
+    const [previewAvatar, setPreviewAvatar] = useState();
     const [imageSelected, setImageSelected] = useState(null);
     const { userData, handleFetchUsers } = useContext(UserContext);
     const [name, setName] = useState("");
@@ -53,6 +53,7 @@ function EditProfileModal({ isOpen, onClose }) {
             });
             alert("Cập nhật thành công");
             console.log("Post added successfully:", response.data);
+            setIsUpdated(true); // Đánh dấu là đã đăng bài thành công
         } catch (error) {
             alert("Cập nhật thất bại");
             console.error("Error adding post:", error);
@@ -164,13 +165,7 @@ function EditProfileModal({ isOpen, onClose }) {
                         onClick={async (e) => {
                             console.log("Đang xử lý");
                             try {
-                                let imageUrl = null;
-                                if (imageSelected == null) {
-                                    imageUrl = userData.avatar;
-                                } else {
-                                    imageUrl = await uploadImage();
-                                }
-
+                                const imageUrl = await uploadImage();
                                 await handleUpdateUser(imageUrl);
                                 console.log("Đã xong");
 

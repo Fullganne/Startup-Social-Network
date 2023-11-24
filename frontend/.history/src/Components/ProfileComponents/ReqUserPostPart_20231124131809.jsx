@@ -35,7 +35,9 @@ const ReqUserPostPart = () => {
         const tmp = await userService.getById(userData.id);
         console.log(tmp);
 
-        setDataPost(tmp.data.post);
+        if (!dataPost) {
+            setDataPost(tmp.data.post);
+        }
     };
 
     useEffect(() => {

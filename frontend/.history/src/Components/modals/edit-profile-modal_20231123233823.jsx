@@ -8,61 +8,14 @@ import {
     ModalFooter,
     Button,
 } from "@chakra-ui/react";
-import { useState, useContext, useEffect } from "react";
-import Axios from "axios";
-import userService from "../../services/userService";
-import { UserContext } from "../../Context/UserContext";
-import { Image } from "cloudinary-react";
-
+import { useState } from "react";
 function EditProfileModal({ isOpen, onClose }) {
-    const [previewAvatar, setPreviewAvatar] = useState(null);
+    const [previewAvatar, setPreviewAvatar] = useState();
     const [imageSelected, setImageSelected] = useState(null);
-    const { userData, handleFetchUsers } = useContext(UserContext);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const uploadImage = async () => {
-        const formData = new FormData();
-        formData.append("file", imageSelected);
-        formData.append("upload_preset", "umbkkwi4");
-
-        try {
-            const response = await Axios.post(
-                "https://api.cloudinary.com/v1_1/da0ikowpn/image/upload",
-                formData
-            );
-            console.log(response);
-            console.log("url cần thêm: " + response.data.url);
-            return response.data.url; // return the URL
-        } catch (error) {
-            console.error("Error uploading image:", error);
-            throw error; // rethrow the error
-        }
-    };
-
-    const handleUpdateUser = async (imageUrl) => {
-        try {
-            console.log("URL đang lưu: " + imageUrl);
-            const response = await userService.updateById(userData.id, {
-                // id: userData.id,
-                email: email,
-                username: name,
-                password: password,
-                avatar: imageUrl,
-            });
-            alert("Cập nhật thành công");
-            console.log("Post added successfully:", response.data);
-        } catch (error) {
-            alert("Cập nhật thất bại");
-            console.error("Error adding post:", error);
-        }
-    };
 
     const handleOnChange = (e) => {
         setPreviewAvatar(URL.createObjectURL(e.target.files[0]));
     };
-
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -79,7 +32,7 @@ function EditProfileModal({ isOpen, onClose }) {
                                 width={100}
                                 className="rounded-full"
                                 src={
-                                    userData.avatar ||
+                                    previewAvatar ||
                                     "https://lh3.googleusercontent.com/u/0/drive-viewer/AK7aPaAJIDucKftY7-i33wKHSqG4m1WYctmHDPrc_LNd2SzuuaZzNXtTM7H3oMbD9VjdBGjsl47owQl_REnpAi7HrpgqiVp4sQ=w1910-h922"
                                 }
                                 alt="Avatar"
@@ -97,7 +50,7 @@ function EditProfileModal({ isOpen, onClose }) {
                                 type="file"
                                 onChange={(e) => {
                                     console.log("Đã chọn hình");
-                                    setImageSelected(e.target.files[0]);
+                                    // setImageSelected(e.target.files[0]);
                                     handleOnChange(e);
                                 }}
                             />
@@ -113,7 +66,6 @@ function EditProfileModal({ isOpen, onClose }) {
                                 className="w-full max-h-[50px] p-2 ml-7  mt-2 mb-4"
                                 type="text"
                                 placeholder="Nhập tên mới của bạn"
-                                onChange={(e) => setName(e.target.value)}
                             />
                         </div>
 
@@ -127,7 +79,6 @@ function EditProfileModal({ isOpen, onClose }) {
                                 className="w-full max-h-[50px] p-2 ml-7 mt-2 mb-4"
                                 type="email"
                                 placeholder="Nhập Gmail mới"
-                                onChange={(e) => setEmail(e.target.value)}
                             ></input>
                         </div>
                         {/* pass word */}
@@ -152,41 +103,12 @@ function EditProfileModal({ isOpen, onClose }) {
                                 className="w-full max-h-[50px] p-2 ml-7  mt-2 mb-4"
                                 type="text"
                                 placeholder="Nhập Lại PassWord mới"
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button
-                        colorScheme="blue"
-                        mr={3}
-                        onClick={async (e) => {
-                            console.log("Đang xử lý");
-                            try {
-                                let imageUrl = null;
-                                if (imageSelected == null) {
-                                    imageUrl = userData.avatar;
-                                } else {
-                                    imageUrl = await uploadImage();
-                                }
-
-                                await handleUpdateUser(imageUrl);
-                                console.log("Đã xong");
-
-                                onClose();
-                                setPreviewAvatar(null);
-                                setImageSelected(null);
-                                setName("");
-                                setEmail("");
-                                setPassword("");
-
-                                handleFetchUsers();
-                            } catch (error) {
-                                console.error("Error:", error);
-                            }
-                        }}
-                    >
+                    <Button colorScheme="blue" mr={3}>
                         Save
                     </Button>
                     <Button variant="ghost" onClick={onClose}>

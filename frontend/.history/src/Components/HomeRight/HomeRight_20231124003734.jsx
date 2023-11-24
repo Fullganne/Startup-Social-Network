@@ -6,7 +6,7 @@ const HomeRight = () => {
     const { userData, handleFetchUsers } = useContext(UserContext);
     const [user, setUser] = useState(userData);
 
-    // handleFetchUsers();
+    handleFetchUsers();
 
     useEffect(() => {
         // Update user state when userData changes
