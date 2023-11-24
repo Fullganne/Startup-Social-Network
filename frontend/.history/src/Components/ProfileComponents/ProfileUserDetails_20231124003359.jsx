@@ -10,7 +10,7 @@ const ProfileUserDetails = () => {
 
     const { userData, handleFetchUsers } = useContext(UserContext);
     // handleFetchUsers();
-    // console.log("URL: " + userData.avatar);
+    console.log("URL: " + userData.image);
     return (
         <div className="py-10 w-full">
             <div className="flex items-center">
@@ -24,8 +24,8 @@ const ProfileUserDetails = () => {
                 >
                     <Image
                         cloudName="da0ikowpn"
-                        // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
-                        publicId={userData.avatar}
+                        publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
+                        // publicId={userData.image}
                         className="w-32 h-32 rounded-full"
                         style={{
                             position: "absolute",

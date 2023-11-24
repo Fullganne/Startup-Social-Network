@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "./post.css";
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
@@ -20,28 +20,10 @@ import postService from "../../services/postService";
 import userService from "../../services/userService";
 
 const PostCard = ({ data, handleFetchPost }) => {
-    const [like, setLike] = useState(false);
+    const [isPostLiked, setIsPostLiked] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { userData, handleFetchUsers } = useContext(UserContext);
-
-    useEffect(() => {
-        // Move your logic here
-        if (data.likedUsers.split(";").includes(userData.username)) {
-            setLike(true);
-        } else {
-            setLike(false);
-        }
-
-        console.log("Data");
-        console.log(data);
-
-        let username = userData.username;
-        let likedUser = data.likedUsers || "";
-        console.log("Username: " + username);
-        console.log("Liked user: " + likedUser);
-        console.log("Like: " + like);
-    }, [data.likedUsers, userData.username]);
 
     const handleSavePost = () => {
         setIsSaved(!isSaved);
@@ -50,31 +32,21 @@ const PostCard = ({ data, handleFetchPost }) => {
     const handleOpenModel = () => {
         onOpen();
     };
-    const handlePostLiked = async () => {
-        // let username = userData.username;
-        // let likedUser = data.likedUsers || "";
-        // console.log("Username: " + username);
-        // console.log("Liked user: " + likedUser);
-        // if (username == null || likedUser == null) return;
-        // let likedUserArray = likedUser.split(";");
-        // setLike(likedUserArray.includes(username));
-
-        // if (
-        //     data.likedUsers &&
-        //     data.likedUsers.split(";").includes(userData.username)
-        // ) {
-        //     setLike(true);
-        // }
-
-        if (like == false) {
-            console.log("Xử lí like");
-            await postService.likePost(data.id_post, userData.id);
-            await handleFetchPost();
+    const handlePostLiked = () => {
+        if (isPostLiked == false) {
+            postService.likePost(data.id_post, userData.id);
+            setIsPostLiked(true);
+            handleFetchPost();
         } else {
-            console.log("Xử lí dislike");
-            await postService.dislikePost(data.id_post, userData.id);
-            await handleFetchPost();
+            postService.dislikePost(data.id_post, userData.id);
+            setIsPostLiked(false);
+            handleFetchPost();
         }
+    };
+    const handlePostUnLiked = () => {
+        postService.dislikePost(data.id_post, userData.id);
+        setIsPostLiked(false);
+        handleFetchPost();
     };
 
     const handleDeletePost = async () => {
@@ -97,10 +69,23 @@ const PostCard = ({ data, handleFetchPost }) => {
                             cloudName="da0ikowpn"
                             // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
                             publicId={userData.avatar}
-                            className="h-12 w-12 rounded-full"
+                            className="w-32 h-32 rounded-full"
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                            }}
                             alt="Avatar"
                         />
 
+                        <img
+                            className="h-12 w-12 rounded-full"
+                            src="https://cdn.pixabay.com/photo/2023/10/27/12/13/vineyard-8345243_1280.jpg"
+                            alt=""
+                        />
                         <div className="pl-2">
                             <p className="font-semibold text-sm">
                                 {userData?.username}
@@ -144,10 +129,7 @@ const PostCard = ({ data, handleFetchPost }) => {
                     <div className="flex items-center space-x-2 ">
                         {/* {isPostLiked? <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostUnLiked}/>:<AiOutlineHeart className='text-xl hover:opacity-50 cursor-pointer' onClick={handlePostLiked}/>} */}
                         <AiFillHeart
-                            // className="text-xl hover:opacity-50 cursor-pointer "
-                            className={`text-xl hover:opacity-50 cursor-pointer ${
-                                like ? "text-red-500" : ""
-                            }`}
+                            className="text-xl hover:opacity-50 cursor-pointer text-red-500"
                             onClick={handlePostLiked}
                         />
                         {

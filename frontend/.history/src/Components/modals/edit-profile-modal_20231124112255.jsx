@@ -164,7 +164,7 @@ function EditProfileModal({ isOpen, onClose }) {
                         onClick={async (e) => {
                             console.log("Đang xử lý");
                             try {
-                                let imageUrl = null;
+                                const imageUrl = null;
                                 if (imageSelected == null) {
                                     imageUrl = userData.avatar;
                                 } else {

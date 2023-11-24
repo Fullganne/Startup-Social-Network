@@ -9,8 +9,10 @@ const ProfileUserDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const { userData, handleFetchUsers } = useContext(UserContext);
-    // handleFetchUsers();
-    // console.log("URL: " + userData.avatar);
+    handleFetchUsers();
+    {
+        console.log(userData.image);
+    }
     return (
         <div className="py-10 w-full">
             <div className="flex items-center">
@@ -23,10 +25,6 @@ const ProfileUserDetails = () => {
                     }}
                 >
                     <Image
-                        cloudName="da0ikowpn"
-                        // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
-                        publicId={userData.avatar}
-                        className="w-32 h-32 rounded-full"
                         style={{
                             position: "absolute",
                             top: 0,
@@ -35,6 +33,10 @@ const ProfileUserDetails = () => {
                             height: "100%",
                             objectFit: "cover",
                         }}
+                        cloudName="da0ikowpn"
+                        // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
+                        publicId={userData.image}
+                        className="w-32 h-32 rounded-full"
                         alt="Avatar"
                     />
                 </div>

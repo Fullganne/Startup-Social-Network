@@ -9,34 +9,29 @@ const ProfileUserDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const { userData, handleFetchUsers } = useContext(UserContext);
-    // handleFetchUsers();
-    // console.log("URL: " + userData.avatar);
     return (
         <div className="py-10 w-full">
             <div className="flex items-center">
-                <div
-                    className="w-[15%]"
-                    style={{
-                        position: "relative",
-                        paddingBottom: "12.25%",
-                        height: 0,
-                    }}
-                >
+                <div className="w-[15%]">
                     <Image
                         cloudName="da0ikowpn"
-                        // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
-                        publicId={userData.avatar}
-                        className="w-32 h-32 rounded-full"
+                        publicId={data.image}
+                        className="w-full"
                         style={{
                             position: "absolute",
                             top: 0,
                             left: 0,
                             width: "100%",
                             height: "100%",
-                            objectFit: "cover",
+                            objectFit: "cover", // Add this line
                         }}
-                        alt="Avatar"
+                        alt="Post Upload"
                     />
+                    <img
+                        className="w-32 h-32 rounded-full"
+                        src="https://lh3.googleusercontent.com/u/0/drive-viewer/AK7aPaAJIDucKftY7-i33wKHSqG4m1WYctmHDPrc_LNd2SzuuaZzNXtTM7H3oMbD9VjdBGjsl47owQl_REnpAi7HrpgqiVp4sQ=w1910-h922"
+                        alt=""
+                    ></img>
                 </div>
                 <div className="space-y-5">
                     <div className="flex space-x-10 items-center">

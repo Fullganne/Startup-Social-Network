@@ -8,19 +8,12 @@ import {
     ModalFooter,
     Button,
 } from "@chakra-ui/react";
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import Axios from "axios";
-import userService from "../../services/userService";
-import { UserContext } from "../../Context/UserContext";
-import { Image } from "cloudinary-react";
 
 function EditProfileModal({ isOpen, onClose }) {
-    const [previewAvatar, setPreviewAvatar] = useState(null);
+    const [previewAvatar, setPreviewAvatar] = useState();
     const [imageSelected, setImageSelected] = useState(null);
-    const { userData, handleFetchUsers } = useContext(UserContext);
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
     const uploadImage = async () => {
         const formData = new FormData();
@@ -41,28 +34,9 @@ function EditProfileModal({ isOpen, onClose }) {
         }
     };
 
-    const handleUpdateUser = async (imageUrl) => {
-        try {
-            console.log("URL đang lưu: " + imageUrl);
-            const response = await userService.updateById(userData.id, {
-                // id: userData.id,
-                email: email,
-                username: name,
-                password: password,
-                avatar: imageUrl,
-            });
-            alert("Cập nhật thành công");
-            console.log("Post added successfully:", response.data);
-        } catch (error) {
-            alert("Cập nhật thất bại");
-            console.error("Error adding post:", error);
-        }
-    };
-
     const handleOnChange = (e) => {
         setPreviewAvatar(URL.createObjectURL(e.target.files[0]));
     };
-
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -79,7 +53,7 @@ function EditProfileModal({ isOpen, onClose }) {
                                 width={100}
                                 className="rounded-full"
                                 src={
-                                    userData.avatar ||
+                                    previewAvatar ||
                                     "https://lh3.googleusercontent.com/u/0/drive-viewer/AK7aPaAJIDucKftY7-i33wKHSqG4m1WYctmHDPrc_LNd2SzuuaZzNXtTM7H3oMbD9VjdBGjsl47owQl_REnpAi7HrpgqiVp4sQ=w1910-h922"
                                 }
                                 alt="Avatar"
@@ -113,7 +87,6 @@ function EditProfileModal({ isOpen, onClose }) {
                                 className="w-full max-h-[50px] p-2 ml-7  mt-2 mb-4"
                                 type="text"
                                 placeholder="Nhập tên mới của bạn"
-                                onChange={(e) => setName(e.target.value)}
                             />
                         </div>
 
@@ -127,7 +100,6 @@ function EditProfileModal({ isOpen, onClose }) {
                                 className="w-full max-h-[50px] p-2 ml-7 mt-2 mb-4"
                                 type="email"
                                 placeholder="Nhập Gmail mới"
-                                onChange={(e) => setEmail(e.target.value)}
                             ></input>
                         </div>
                         {/* pass word */}
@@ -152,7 +124,6 @@ function EditProfileModal({ isOpen, onClose }) {
                                 className="w-full max-h-[50px] p-2 ml-7  mt-2 mb-4"
                                 type="text"
                                 placeholder="Nhập Lại PassWord mới"
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
                     </div>
@@ -164,24 +135,9 @@ function EditProfileModal({ isOpen, onClose }) {
                         onClick={async (e) => {
                             console.log("Đang xử lý");
                             try {
-                                let imageUrl = null;
-                                if (imageSelected == null) {
-                                    imageUrl = userData.avatar;
-                                } else {
-                                    imageUrl = await uploadImage();
-                                }
-
-                                await handleUpdateUser(imageUrl);
+                                const imageUrl = await uploadImage();
+                                await handleAddPost(imageUrl);
                                 console.log("Đã xong");
-
-                                onClose();
-                                setPreviewAvatar(null);
-                                setImageSelected(null);
-                                setName("");
-                                setEmail("");
-                                setPassword("");
-
-                                handleFetchUsers();
                             } catch (error) {
                                 console.error("Error:", error);
                             }

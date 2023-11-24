@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "./post.css";
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
@@ -25,23 +25,8 @@ const PostCard = ({ data, handleFetchPost }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { userData, handleFetchUsers } = useContext(UserContext);
 
-    useEffect(() => {
-        // Move your logic here
-        if (data.likedUsers.split(";").includes(userData.username)) {
-            setLike(true);
-        } else {
-            setLike(false);
-        }
-
-        console.log("Data");
-        console.log(data);
-
-        let username = userData.username;
-        let likedUser = data.likedUsers || "";
-        console.log("Username: " + username);
-        console.log("Liked user: " + likedUser);
-        console.log("Like: " + like);
-    }, [data.likedUsers, userData.username]);
+    console.log("Data");
+    console.log(data);
 
     const handleSavePost = () => {
         setIsSaved(!isSaved);
@@ -55,16 +40,14 @@ const PostCard = ({ data, handleFetchPost }) => {
         // let likedUser = data.likedUsers || "";
         // console.log("Username: " + username);
         // console.log("Liked user: " + likedUser);
-        // if (username == null || likedUser == null) return;
-        // let likedUserArray = likedUser.split(";");
-        // setLike(likedUserArray.includes(username));
 
-        // if (
-        //     data.likedUsers &&
-        //     data.likedUsers.split(";").includes(userData.username)
-        // ) {
-        //     setLike(true);
-        // }
+        // if (username == null || likedUser == null) return;
+
+        // // Chuyển chuỗi thành mảng bằng cách tách các tên người dùng bằng dấu chấm phẩy
+        // let likedUserArray = likedUser.split(";");
+
+        // // Kiểm tra xem `username` có tồn tại trong mảng `likedUserArray` hay không
+        // setLike(likedUserArray.includes(username));
 
         if (like == false) {
             console.log("Xử lí like");

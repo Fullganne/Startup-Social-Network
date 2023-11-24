@@ -164,11 +164,15 @@ function EditProfileModal({ isOpen, onClose }) {
                         onClick={async (e) => {
                             console.log("Đang xử lý");
                             try {
-                                let imageUrl = null;
+                                // if (!previewAvatar) {
+                                //     alert("Chưa thêm hình");
+                                //     return;
+                                // }
+                                const imageUrl = null;
                                 if (imageSelected == null) {
                                     imageUrl = userData.avatar;
                                 } else {
-                                    imageUrl = await uploadImage();
+                                    const imageUrl = await uploadImage();
                                 }
 
                                 await handleUpdateUser(imageUrl);

@@ -25,23 +25,23 @@ const PostCard = ({ data, handleFetchPost }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { userData, handleFetchUsers } = useContext(UserContext);
 
+    console.log("Data");
+    console.log(data);
+
+    let username = userData.username;
+    let likedUser = data.likedUsers || "";
+    console.log("Username: " + username);
+    console.log("Liked user: " + likedUser);
+
     useEffect(() => {
         // Move your logic here
-        if (data.likedUsers.split(";").includes(userData.username)) {
+        if (
+            data.likedUsers &&
+            data.likedUsers.split(";").includes(userData.username)
+        ) {
             setLike(true);
-        } else {
-            setLike(false);
         }
-
-        console.log("Data");
-        console.log(data);
-
-        let username = userData.username;
-        let likedUser = data.likedUsers || "";
-        console.log("Username: " + username);
-        console.log("Liked user: " + likedUser);
-        console.log("Like: " + like);
-    }, [data.likedUsers, userData.username]);
+    }, []);
 
     const handleSavePost = () => {
         setIsSaved(!isSaved);

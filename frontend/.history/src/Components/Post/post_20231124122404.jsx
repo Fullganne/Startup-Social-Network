@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "./post.css";
 import { Link } from "react-router-dom";
 import { Image } from "cloudinary-react";
@@ -25,23 +25,8 @@ const PostCard = ({ data, handleFetchPost }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { userData, handleFetchUsers } = useContext(UserContext);
 
-    useEffect(() => {
-        // Move your logic here
-        if (data.likedUsers.split(";").includes(userData.username)) {
-            setLike(true);
-        } else {
-            setLike(false);
-        }
-
-        console.log("Data");
-        console.log(data);
-
-        let username = userData.username;
-        let likedUser = data.likedUsers || "";
-        console.log("Username: " + username);
-        console.log("Liked user: " + likedUser);
-        console.log("Like: " + like);
-    }, [data.likedUsers, userData.username]);
+    console.log("Data");
+    console.log(data);
 
     const handleSavePost = () => {
         setIsSaved(!isSaved);
@@ -50,30 +35,28 @@ const PostCard = ({ data, handleFetchPost }) => {
     const handleOpenModel = () => {
         onOpen();
     };
-    const handlePostLiked = async () => {
-        // let username = userData.username;
-        // let likedUser = data.likedUsers || "";
-        // console.log("Username: " + username);
-        // console.log("Liked user: " + likedUser);
-        // if (username == null || likedUser == null) return;
-        // let likedUserArray = likedUser.split(";");
-        // setLike(likedUserArray.includes(username));
+    const handlePostLiked = () => {
+        let username = userData.username;
+        let likedUser = data.likedUser || "";
+        console.log(username);
+        console.log(likedUser);
 
-        // if (
-        //     data.likedUsers &&
-        //     data.likedUsers.split(";").includes(userData.username)
-        // ) {
-        //     setLike(true);
-        // }
+        if (username == null || likedUser == null) return;
+
+        // Chuyển chuỗi thành mảng bằng cách tách các tên người dùng bằng dấu chấm phẩy
+        let likedUserArray = likedUser.split(";");
+
+        // Kiểm tra xem `username` có tồn tại trong mảng `likedUserArray` hay không
+        setLike(likedUserArray.includes(username));
 
         if (like == false) {
             console.log("Xử lí like");
-            await postService.likePost(data.id_post, userData.id);
-            await handleFetchPost();
+            postService.likePost(data.id_post, userData.id);
+            handleFetchPost();
         } else {
             console.log("Xử lí dislike");
-            await postService.dislikePost(data.id_post, userData.id);
-            await handleFetchPost();
+            postService.dislikePost(data.id_post, userData.id);
+            handleFetchPost();
         }
     };
 
@@ -144,10 +127,7 @@ const PostCard = ({ data, handleFetchPost }) => {
                     <div className="flex items-center space-x-2 ">
                         {/* {isPostLiked? <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostUnLiked}/>:<AiOutlineHeart className='text-xl hover:opacity-50 cursor-pointer' onClick={handlePostLiked}/>} */}
                         <AiFillHeart
-                            // className="text-xl hover:opacity-50 cursor-pointer "
-                            className={`text-xl hover:opacity-50 cursor-pointer ${
-                                like ? "text-red-500" : ""
-                            }`}
+                            className="text-xl hover:opacity-50 cursor-pointer "
                             onClick={handlePostLiked}
                         />
                         {

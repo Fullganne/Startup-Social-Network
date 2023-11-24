@@ -70,7 +70,6 @@ const ReqUserPostPart = () => {
             {/* <Outlet/> */}
 
             <div className="w-[50%] mx-auto">
-                {console.log(userData)}
                 {dataPost?.map((item) => {
                     return (
                         <PostCard
