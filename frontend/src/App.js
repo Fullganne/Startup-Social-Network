@@ -18,7 +18,7 @@ function App() {
     <AppProvider>
     <div>
     <div className="flex">
-       {window.location.href.includes("/router")||window.location.href.includes("/user")||window.location.href.includes("/home")||window.location.href.includes("/search")?( <div className='w-[18.5%] border border-l-slate-500'>
+       {window.location.href.includes("/home")||window.location.href.includes("/user")||window.location.href.includes("/search")?( <div className='w-[18.5%] border border-l-slate-500'>
             <Sidebar/>
         </div>):""}
         <div className='w-full'>
