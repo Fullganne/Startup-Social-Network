@@ -81,14 +81,14 @@ const PostCard = ({ data, handleFetchPost }) => {
                         <Image
                             cloudName="da0ikowpn"
                             // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
-                            publicId={data.avatar}
+                            publicId={userData.avatar}
                             className="block float-right object-cover w-14 h-14 rounded-full"
                             alt="Avatar"
                         />
 
                         <div className="pl-2">
                             <p className="font-semibold text-sm">
-                                {data?.username}
+                                {userData?.username}
                             </p>
                             <p className="font-thin text-sm">{data?.day}</p>
                         </div>
