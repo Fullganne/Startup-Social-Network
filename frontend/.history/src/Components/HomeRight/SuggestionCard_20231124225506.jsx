@@ -3,7 +3,7 @@ import { UserContext } from "../../Context/UserContext";
 import { Image } from "cloudinary-react";
 import followService from "../../services/followService";
 
-const SuggestionCard = ({ user, key }) => {
+const SuggestionCard = ({ user }) => {
     const { userData, handleFetchUsers } = useContext(UserContext);
     const [id, setId] = useState(user.id);
 
@@ -12,6 +12,7 @@ const SuggestionCard = ({ user, key }) => {
             console.log("User id: " + userData.id);
             console.log("followed id: " + id);
             const response = await followService.follow(userData.id, id);
+            alert("Đã follow");
             console.log(response);
         } catch (error) {
             console.error("Error following user:", error);
@@ -19,7 +20,7 @@ const SuggestionCard = ({ user, key }) => {
     };
 
     return (
-        <div key={user.id}>
+        <div>
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <div>
@@ -41,10 +42,7 @@ const SuggestionCard = ({ user, key }) => {
                 {/* <p className="text-cyan-500 font-semibold">Follow</p> */}
                 <button
                     className="text-cyan-500 font-semibold cursor-pointer"
-                    onClick={(e) => {
-                        handleFollow();
-                        alert("Đã follow");
-                    }}
+                    onClick={handleFollow}
                 >
                     Follow
                 </button>

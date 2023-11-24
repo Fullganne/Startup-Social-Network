@@ -6,14 +6,15 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import logo from '../Assets/logo.png'
 import userService from '../../services/userService';
-
+import { useDisclosure } from '@chakra-ui/react';
+import ModalResetPassword from './modalResetPassword';
 function Login() {
     const navigate=useNavigate()
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState('');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true); 
-
-    const validationEmail = (email) => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+        const validationEmail = (email) => {
         const regex = /\S+@\S+\.\S+/.test(email);
         
         return regex;
@@ -57,7 +58,9 @@ function Login() {
             alert("Đăng nhập thất bại")
         }
     }
-   
+    const handleOpenModel=()=>{
+        onOpen()
+    };
   return (
     <div className='login-container'>
         <div className='box-outline'>
@@ -78,6 +81,9 @@ function Login() {
                         <a className='button-login'>Đăng nhập</a>
                     </button>
             </div>
+            <div className='text-forgotPass mt-10' onClick={handleOpenModel}>
+    Quên Mật Khẩu?
+</div>
 
             <div className='text-forgotPass'>
                 {/* <a className='forgot-pass' href='#'>Quên Mật Khẩu?</a> */}
@@ -89,6 +95,7 @@ function Login() {
                     <p className='hover:font-semibold hover:text-lg'>Đăng kí</p>
                 </Link>
             </div>
+            <ModalResetPassword isOpen={isOpen} onClose={onClose}/>
     </div>
   );
 };

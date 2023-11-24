@@ -1,59 +1,46 @@
 import axios from "axios";
 const SERVER_PORT = 8080;
-const USER_ENDPOINT = `http://localhost:${SERVER_PORT}/user`;
+const USER_ENDPOINT = `http://localhost:${SERVER_PORT}/f`;
 const userService = {
-    loginUser: (user) =>
+    follow: (userId, followedId) =>
         axios
             .create({
                 baseURL: USER_ENDPOINT,
                 timeout: 5000,
             })
-            .post(`/login`, user),
+            .post(`/follow?userId=${userId}&followedId=${followedId}`),
 
-    signupUser: (user) =>
+    unfollow: (userId, followedId) =>
         axios
             .create({
                 baseURL: USER_ENDPOINT,
                 timeout: 5000,
             })
-            .post("/signup", user),
+            .delete(`/unfollow?userId=${userId}&followedId=${followedId}`),
 
-    getById: (id) =>
+    getFollowings: (userId) =>
         axios
             .create({
                 baseURL: USER_ENDPOINT,
                 timeout: 5000,
             })
-            .get(`/${id}`),
+            .get(`/getFollowing?userId=${userId}`),
 
-    updateById: (id, user) =>
+    getFollowers: (followedId) =>
         axios
             .create({
                 baseURL: USER_ENDPOINT,
                 timeout: 5000,
             })
-            .put(`/update/${id}`, user),
+            .get(`/getFollowers?followedId=${followedId}`),
 
-    getUserNotId: (id) =>
+    getAllFollow: () =>
         axios
             .create({
                 baseURL: USER_ENDPOINT,
                 timeout: 5000,
             })
-            .get(`/notid/${id}`),
-
-    getAllUser: () =>
-        axios
-            .create({
-                baseURL: USER_ENDPOINT,
-                timeout: 5000,
-            })
-            .get(`/list`),
-
-            getUserByEmail:(email)=>axios.create({
-                baseURL: USER_ENDPOINT,
-                timeout: 5000,
-            }).get(`getbyemail/${email}`)
+            .get(`/all`),
 };
 
 export default userService;

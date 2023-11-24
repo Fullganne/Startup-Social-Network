@@ -49,11 +49,6 @@ const userService = {
                 timeout: 5000,
             })
             .get(`/list`),
-
-            getUserByEmail:(email)=>axios.create({
-                baseURL: USER_ENDPOINT,
-                timeout: 5000,
-            }).get(`getbyemail/${email}`)
 };
 
 export default userService;

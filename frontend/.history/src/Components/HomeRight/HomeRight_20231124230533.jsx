@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import SuggestionCard from "./SuggestionCard";
 import { UserContext } from "../../Context/UserContext";
-import { Image } from "cloudinary-react";
 import userService from "../../services/userService";
 
 const HomeRight = () => {
@@ -17,7 +16,6 @@ const HomeRight = () => {
                 setUsers(response.data); // Assuming the data is in the 'data' property
 
                 response = await userService.getFollowings(userData.id);
-                console.log("Followings API Response:", response); // Add this line
                 setFollowings(response);
                 console.log("Following");
                 console.log(response);
@@ -41,11 +39,10 @@ const HomeRight = () => {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center">
                         <div>
-                            <Image
-                                cloudName="da0ikowpn"
-                                publicId={userData.avatar}
-                                className="object-cover w-14 h-14 rounded-full"
-                                alt="Avatar"
+                            <img
+                                className="w-14 h-14 rounded-full"
+                                src={userData.avatar}
+                                alt=""
                             />
                         </div>
                         <div className="ml-3">
