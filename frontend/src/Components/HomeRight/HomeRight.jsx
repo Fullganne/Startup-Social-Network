@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import SuggestionCard from "./SuggestionCard";
 import { UserContext } from "../../Context/UserContext";
+import { Image } from "cloudinary-react";
 import userService from "../../services/userService";
 
 const HomeRight = () => {
@@ -40,10 +41,11 @@ const HomeRight = () => {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center">
                         <div>
-                            <img
-                                className="w-14 h-14 rounded-full"
-                                src={userData.avatar}
-                                alt=""
+                            <Image
+                                cloudName="da0ikowpn"
+                                publicId={userData.avatar}
+                                className="object-cover w-14 h-14 rounded-full"
+                                alt="Avatar"
                             />
                         </div>
                         <div className="ml-3">

@@ -110,7 +110,7 @@ const Sidebar = () => {
       <div className="flex flex-col justify-between h-full">
         <div className='px-3'>
           <div className="pt-10">
-            <img className="w-25" src='https://i.imgur.com/zqpwkLQ.png' alt='' />
+            <img className="w-25" src='logo.png' alt='' />
           </div>
           <div className="mt-10">
               {mainu.map((item)=> (
