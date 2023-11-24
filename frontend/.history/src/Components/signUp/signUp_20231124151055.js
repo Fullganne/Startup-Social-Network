@@ -81,7 +81,7 @@ const SignUp = () => {
 
             if (Object.keys(validationErrors).length === 0) {
                 const newUser = await userService.signupUser({
-                    id: uuid4().substring(0, 8),
+                    id: uuid4(),
                     username: username,
                     email: email,
                     password: password,

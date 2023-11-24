@@ -108,7 +108,7 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
                                 <div className="rounded-full w-[60px] overflow-hidden m-2">
                                     <img src={userData.avatar} alt="avatar" />
                                 </div>
-                                <p>{userData.username}</p>
+                                <p>User Name</p>
                                 <div>
                                     <select
                                         className="flex items-center rounded-lg border-solid border-2 border-black m-2 py-1 px-3"

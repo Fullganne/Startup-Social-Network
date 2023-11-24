@@ -69,7 +69,6 @@ function EditProfileModal({ isOpen, onClose }) {
             }
 
             if (Object.keys(updatedUserData).length > 0) {
-                console.log(updatedUserData);
                 const response = await userService.updateById(
                     userData.id,
                     updatedUserData
@@ -88,12 +87,6 @@ function EditProfileModal({ isOpen, onClose }) {
     const handleOnChange = (e) => {
         setPreviewImage(URL.createObjectURL(e.target.files[0]));
     };
-
-    useEffect(() => {
-        if (!isOpen) {
-            setPreviewImage(null);
-        }
-    }, [isOpen]);
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
