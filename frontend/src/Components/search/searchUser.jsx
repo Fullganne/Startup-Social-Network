@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Image } from "cloudinary-react";
+import { UserContext } from "../../Context/UserContext";
+import followService from "../../services/followService";
 
-const SearchUser = ({ dataUser }) => {
+const SearchUser = ({ key, dataUser }) => {
     // console.log(da)
+    const { userData, handleFetchUsers } = useContext(UserContext);
+    const [id, setId] = useState(dataUser.id);
+
+    const handleFollow = async () => {
+        try {
+            console.log("User id: " + userData.id);
+            console.log("followed id: " + id);
+            const response = await followService.follow(userData.id, id);
+            console.log(response);
+        } catch (error) {
+            console.error("Error following user:", error);
+        }
+    };
     return (
         <div className="flex justify-between items-center py-3">
             <div className="flex items-center">
@@ -30,7 +45,15 @@ const SearchUser = ({ dataUser }) => {
                     <p className="text-base opacity-70">Suggested for you</p>
                 </div>
             </div>
-            <p className="text-cyan-500 font-semibold pr-4">Follow</p>
+            <button
+                    className="text-cyan-500 font-semibold cursor-pointer pr-4"
+                    onClick={(e) => {
+                        handleFollow();
+                        alert("Đã follow");
+                    }}
+                >
+                    Follow
+                </button>
         </div>
     );
 };

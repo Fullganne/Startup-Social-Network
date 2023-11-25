@@ -33,7 +33,7 @@ const HomeRight = () => {
         // Update user state when userData changes
         setUser(userData);
     }, [userData]);
-
+    
     console.log("right :", user);
     return (
         <div className="w-[75%]">
@@ -63,7 +63,7 @@ const HomeRight = () => {
                 <p className="text-xl font-semibold opacity-50">
                     Suggested for you
                 </p>
-                {users.map((item) => (
+                {users.filter(item => item.id !== userData.id).slice(0,5).map((item) => (
                     <SuggestionCard key={item.id} user={item} />
                 ))}
             </div>

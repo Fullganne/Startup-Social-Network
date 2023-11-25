@@ -9,7 +9,7 @@ const ProfileUserDetails = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const { userData, handleFetchUsers } = useContext(UserContext);
-    // handleFetchUsers();
+    handleFetchUsers();
     // console.log("URL: " + userData.avatar);
     return (
         <div className="py-10 w-full">
