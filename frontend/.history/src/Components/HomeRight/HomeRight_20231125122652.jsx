@@ -3,7 +3,6 @@ import SuggestionCard from "./SuggestionCard";
 import { UserContext } from "../../Context/UserContext";
 import { Image } from "cloudinary-react";
 import userService from "../../services/userService";
-import followService from "../../services/followService";
 
 const HomeRight = () => {
     const { userData, handleFetchUsers } = useContext(UserContext);
@@ -12,35 +11,23 @@ const HomeRight = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const fetchData = async () => {
             try {
-                console.log("Đang lấy tất cả USERS");
-                const response = await userService.getAllUser();
-                setUsers(response.data);
-            } catch (error) {
-                console.error("Lỗi khi lấy dữ liệu người dùng:", error);
-            }
-        };
+                let response = await userService.getAllUser();
+                setUsers(response.data); // Assuming the data is in the 'data' property
 
-        fetchUsers();
-    }, []);
-
-    useEffect(() => {
-        const fetchFollowings = async () => {
-            try {
-                console.log("Đang lấy danh sách theo dõi của user");
-                const response = await followService.getFollowings(userData.id);
-                console.log("Followings API Response:", response);
-                setFollowings(response.data);
+                response = await userService.getFollowings(userData.id);
+                console.log("Followings API Response:", response); // Add this line
+                setFollowings(response);
                 console.log("Following");
-                console.log(response.data);
+                console.log(response);
             } catch (error) {
-                console.error("Lỗi khi lấy danh sách theo dõi:", error);
+                console.error("Error fetching users:", error);
             }
         };
 
-        fetchFollowings();
-    }, []);
+        fetchData();
+    }, [followings]); // Added userData.id to the dependency array
 
     useEffect(() => {
         // Update user state when userData changes
@@ -80,11 +67,7 @@ const HomeRight = () => {
                     .filter((item) => item.id !== userData.id)
                     .slice(0, 5)
                     .map((item) => (
-                        <SuggestionCard
-                            key={item.id}
-                            user={item}
-                            followings={followings || []}
-                        />
+                        <SuggestionCard key={item.id} user={item} />
                     ))}
             </div>
         </div>

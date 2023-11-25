@@ -83,7 +83,7 @@ const HomeRight = () => {
                         <SuggestionCard
                             key={item.id}
                             user={item}
-                            followings={followings || []}
+                            followings={followings}
                         />
                     ))}
             </div>

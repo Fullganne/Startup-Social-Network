@@ -19,7 +19,7 @@ const SuggestionCard = ({ user, key, followings }) => {
             } else {
                 console.log("Unfollow");
                 const response = await followService.unfollow(userData.id, id);
-                setFollowed(!response.data);
+                setFollowed(response.data);
                 console.log(response);
             }
         } catch (error) {

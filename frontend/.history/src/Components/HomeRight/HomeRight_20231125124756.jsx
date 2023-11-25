@@ -80,11 +80,7 @@ const HomeRight = () => {
                     .filter((item) => item.id !== userData.id)
                     .slice(0, 5)
                     .map((item) => (
-                        <SuggestionCard
-                            key={item.id}
-                            user={item}
-                            followings={followings || []}
-                        />
+                        <SuggestionCard key={item.id} user={item} followings{followings}/>
                     ))}
             </div>
         </div>

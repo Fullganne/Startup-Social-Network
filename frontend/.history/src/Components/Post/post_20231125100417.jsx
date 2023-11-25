@@ -19,7 +19,7 @@ import { UserContext } from "../../Context/UserContext";
 import postService from "../../services/postService";
 import userService from "../../services/userService";
 
-const PostCard = ({ data, handleFetchPost, key }) => {
+const PostCard = ({ data, handleFetchPost }) => {
     const [like, setLike] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,7 +41,7 @@ const PostCard = ({ data, handleFetchPost, key }) => {
         console.log("Username: " + id);
         console.log("Liked user: " + likedUser);
         console.log("Like: " + like);
-    }, [data.likedUsers, userData.id]);
+    }, [data.likedUsers]);
 
     const handleSavePost = () => {
         setIsSaved(!isSaved);
@@ -74,7 +74,7 @@ const PostCard = ({ data, handleFetchPost, key }) => {
     };
 
     return (
-        <div key={key}>
+        <div>
             <div className="border rounded-md w-full my-10">
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center">

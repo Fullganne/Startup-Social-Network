@@ -8,7 +8,7 @@ import PostCard from "../Post/post";
 import postService from "../../services/postService";
 import { UserContext } from "../../Context/UserContext";
 import userService from "../../services/userService";
-const ReqUserPostPart = React.memo(() => {
+const ReqUserPostPart = () => {
     const { userData } = useContext(UserContext);
     const [dataPost, setDataPost] = useState(userData.post);
     const [activeTab, setActiveTab] = useState("POSTS");
@@ -33,14 +33,23 @@ const ReqUserPostPart = React.memo(() => {
 
     const handleFetchPost = async () => {
         const tmp = await userService.getById(userData.id);
-        console.log(tmp);
+        console.log("Đang fetch post cho trang Profile");
 
         setDataPost(tmp.data.post);
     };
 
     useEffect(() => {
         handleFetchPost();
-    }, []);
+    }, [userData.post]);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         // console.log("Đang fetch post cho trang Profile");
+    //         const posts = await userService.getById(userData.id);
+    //         setDataPost(posts);
+    //     };
+    //     fetchData();
+    // }, [userData.post]);
 
     console.log("ds post ne: ", dataPost);
     return (
@@ -84,6 +93,6 @@ const ReqUserPostPart = React.memo(() => {
             </div>
         </div>
     );
-});
+};
 
 export default ReqUserPostPart;

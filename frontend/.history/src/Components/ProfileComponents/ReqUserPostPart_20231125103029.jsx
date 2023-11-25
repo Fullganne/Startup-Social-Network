@@ -8,7 +8,7 @@ import PostCard from "../Post/post";
 import postService from "../../services/postService";
 import { UserContext } from "../../Context/UserContext";
 import userService from "../../services/userService";
-const ReqUserPostPart = React.memo(() => {
+const ReqUserPostPart = () => {
     const { userData } = useContext(UserContext);
     const [dataPost, setDataPost] = useState(userData.post);
     const [activeTab, setActiveTab] = useState("POSTS");
@@ -84,6 +84,6 @@ const ReqUserPostPart = React.memo(() => {
             </div>
         </div>
     );
-});
+};
 
 export default ReqUserPostPart;

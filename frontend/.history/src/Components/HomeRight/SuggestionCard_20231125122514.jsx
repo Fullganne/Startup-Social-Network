@@ -3,7 +3,7 @@ import { UserContext } from "../../Context/UserContext";
 import { Image } from "cloudinary-react";
 import followService from "../../services/followService";
 
-const SuggestionCard = ({ user, key, followings }) => {
+const SuggestionCard = ({ user, key }) => {
     const { userData, handleFetchUsers } = useContext(UserContext);
     const [id, setId] = useState(user.id);
     const [followed, setFollowed] = useState(false);
@@ -16,29 +16,14 @@ const SuggestionCard = ({ user, key, followings }) => {
                 const response = await followService.follow(userData.id, id);
                 setFollowed(response.data);
                 console.log(response);
-            } else {
-                console.log("Unfollow");
-                const response = await followService.unfollow(userData.id, id);
-                setFollowed(!response.data);
-                console.log(response);
             }
         } catch (error) {
             console.error("Error following user:", error);
         }
     };
 
-    useEffect(() => {
-        // Check if the user is in the list of followings\
-        const isFollowed = followings.some(
-            (item) => item.followed === user.id && item.users === userData.id
-        );
-        // Update the state based on whether the user is followed
-        setFollowed(isFollowed);
-        console.log("CHECKINGGGGGG: " + followed);
-    }, []);
-
     return (
-        <div key={key}>
+        <div key={user.id}>
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <div>
@@ -62,11 +47,7 @@ const SuggestionCard = ({ user, key, followings }) => {
                     className="text-cyan-500 font-semibold cursor-pointer"
                     onClick={(e) => {
                         handleFollow();
-                        let a = followed
-                            ? "Hủy follow thành công"
-                            : "Follow thành công";
-
-                        alert(a);
+                        alert("Đã follow");
                     }}
                 >
                     {followed ? "Đã Follow" : "Follow"}

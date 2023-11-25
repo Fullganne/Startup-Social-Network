@@ -3,7 +3,6 @@ import SuggestionCard from "./SuggestionCard";
 import { UserContext } from "../../Context/UserContext";
 import { Image } from "cloudinary-react";
 import userService from "../../services/userService";
-import followService from "../../services/followService";
 
 const HomeRight = () => {
     const { userData, handleFetchUsers } = useContext(UserContext);
@@ -29,7 +28,7 @@ const HomeRight = () => {
         const fetchFollowings = async () => {
             try {
                 console.log("Đang lấy danh sách theo dõi của user");
-                const response = await followService.getFollowings(userData.id);
+                const response = await userService.getFollowings(userData.id);
                 console.log("Followings API Response:", response);
                 setFollowings(response.data);
                 console.log("Following");
@@ -40,7 +39,7 @@ const HomeRight = () => {
         };
 
         fetchFollowings();
-    }, []);
+    }, [userData.id]);
 
     useEffect(() => {
         // Update user state when userData changes
@@ -80,11 +79,7 @@ const HomeRight = () => {
                     .filter((item) => item.id !== userData.id)
                     .slice(0, 5)
                     .map((item) => (
-                        <SuggestionCard
-                            key={item.id}
-                            user={item}
-                            followings={followings || []}
-                        />
+                        <SuggestionCard key={item.id} user={item} />
                     ))}
             </div>
         </div>

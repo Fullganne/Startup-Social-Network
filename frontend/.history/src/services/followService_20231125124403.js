@@ -1,7 +1,7 @@
 import axios from "axios";
 const SERVER_PORT = 8080;
 const USER_ENDPOINT = `http://localhost:${SERVER_PORT}/f`;
-const followService = {
+const userService = {
     follow: (userId, followedId) =>
         axios
             .create({
@@ -43,4 +43,4 @@ const followService = {
             .get(`/all`),
 };
 
-export default followService;
+export default userService;
