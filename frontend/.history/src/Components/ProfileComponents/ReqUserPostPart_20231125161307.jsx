@@ -10,7 +10,7 @@ import { UserContext } from "../../Context/UserContext";
 import userService from "../../services/userService";
 const ReqUserPostPart = () => {
     const { userData } = useContext(UserContext);
-    const [dataPost, setDataPost] = useState(null);
+    const [dataPost, setDataPost] = useState(userData.post);
     const [activeTab, setActiveTab] = useState("POSTS");
     const tabs = [
         {
@@ -33,20 +33,13 @@ const ReqUserPostPart = () => {
 
     useEffect(() => {
         handleFetchPost();
-    }, []);
+    }, [userData.post]);
 
     const handleFetchPost = async () => {
-        console.log("ĐANG FETCH POSTTTT");
         const tmp = await postService.getPostOfUser(userData.id);
         console.log(tmp);
 
-        tmp.data.sort((a, b) => {
-            const dateA = new Date(a.day);
-            const dateB = new Date(b.day);
-            return dateB - dateA;
-        });
-
-        setDataPost(tmp.data);
+        setDataPost(tmp.data.post);
     };
 
     // const handleFetchPost = async () => {
