@@ -31,19 +31,17 @@ const CreatPostModal = ({ isOpen, setCloseModal }) => {
     const handleAddPost = async (imageUrl) => {
         try {
             console.log("URL đang lưu " + postContent + " : " + imageUrl);
-            let object = {
+            const response = await postService.addPost({
                 id_post: uuid4(),
                 user: {
                     id: userId,
                 },
                 noidung: postContent,
+                image: imageUrl,
                 privacy: selectedOption,
                 like: 0,
                 likedUsers: "",
-            };
-
-            if (imageUrl) object.image = imageUrl;
-            const response = await postService.addPost(object);
+            });
             alert("Đăng bài thành công");
             console.log("Post added successfully:", response.data);
             setIsPosted(true); // Đánh dấu là đã đăng bài thành công

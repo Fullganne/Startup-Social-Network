@@ -11,7 +11,6 @@ const SuggestionCard = ({ user, key, followings }) => {
     const handleFollow = async () => {
         try {
             if (!followed) {
-                console.log("Follow");
                 console.log("User id: " + userData.id);
                 console.log("followed id: " + id);
                 const response = await followService.follow(userData.id, id);
@@ -46,11 +45,17 @@ const SuggestionCard = ({ user, key, followings }) => {
 
     useEffect(() => {
         // Check if the user is in the list of followings
+        console.log("Heheeh");
+        console.log(followings);
+
         const isFollowed = followings.some((item) => {
+            console.log(item.followed + " and " + user.id);
+            console.log(item.users + " and " + userData.id);
             return item.followed === user.id && item.users === userData.id;
         });
         // Update the state based on whether the user is followed
         setFollowed(isFollowed);
+        console.log("CHECKINGGGGGG: " + followed);
     }, []);
 
     return (

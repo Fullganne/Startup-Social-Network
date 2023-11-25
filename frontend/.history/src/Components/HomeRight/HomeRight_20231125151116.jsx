@@ -12,23 +12,6 @@ const HomeRight = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        const fetchFollowings = async () => {
-            try {
-                console.log("Đang lấy danh sách theo dõi của user");
-                const response = await followService.getFollowings(userData.id);
-                // console.log("Followings API Response:", response);
-                setFollowings(response.data);
-                // console.log("Following");
-                // console.log(followings);
-            } catch (error) {
-                console.error("Lỗi khi lấy danh sách theo dõi:", error);
-            }
-        };
-
-        fetchFollowings();
-    }, []);
-
-    useEffect(() => {
         const fetchUsers = async () => {
             try {
                 console.log("Đang lấy tất cả USERS");
@@ -40,6 +23,23 @@ const HomeRight = () => {
         };
 
         fetchUsers();
+    }, []);
+
+    useEffect(() => {
+        const fetchFollowings = async () => {
+            try {
+                console.log("Đang lấy danh sách theo dõi của user");
+                const response = await followService.getFollowings(userData.id);
+                console.log("Followings API Response:", response);
+                setFollowings(response.data);
+                console.log("Following");
+                console.log(response.data);
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách theo dõi:", error);
+            }
+        };
+
+        fetchFollowings();
     }, []);
 
     useEffect(() => {

@@ -11,7 +11,6 @@ const SuggestionCard = ({ user, key, followings }) => {
     const handleFollow = async () => {
         try {
             if (!followed) {
-                console.log("Follow");
                 console.log("User id: " + userData.id);
                 console.log("followed id: " + id);
                 const response = await followService.follow(userData.id, id);
@@ -19,9 +18,6 @@ const SuggestionCard = ({ user, key, followings }) => {
                 console.log(response);
             } else {
                 console.log("Unfollow");
-                const response = await followService.unfollow(userData.id, id);
-                setFollowed(!response.data);
-                console.log(response);
             }
         } catch (error) {
             console.error("Error following user:", error);
@@ -46,11 +42,10 @@ const SuggestionCard = ({ user, key, followings }) => {
 
     useEffect(() => {
         // Check if the user is in the list of followings
-        const isFollowed = followings.some((item) => {
-            return item.followed === user.id && item.users === userData.id;
-        });
+        const isFollowed = followings.some((item) => item.followed === user.id);
         // Update the state based on whether the user is followed
         setFollowed(isFollowed);
+        console.log("CHECKINGGGGGG: " + followed);
     }, []);
 
     return (
@@ -79,8 +74,8 @@ const SuggestionCard = ({ user, key, followings }) => {
                     onClick={(e) => {
                         handleFollow();
                         let a = followed
-                            ? "Unfollow thành công"
-                            : "Follow thành công";
+                            ? "Follow thành công"
+                            : "Unfollow thành công";
                         alert(a);
                     }}
                 >

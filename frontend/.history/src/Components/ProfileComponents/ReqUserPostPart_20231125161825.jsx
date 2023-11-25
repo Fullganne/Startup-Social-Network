@@ -40,12 +40,6 @@ const ReqUserPostPart = () => {
         const tmp = await postService.getPostOfUser(userData.id);
         console.log(tmp);
 
-        tmp.data.sort((a, b) => {
-            const dateA = new Date(a.day);
-            const dateB = new Date(b.day);
-            return dateB - dateA;
-        });
-
         setDataPost(tmp.data);
     };
 
