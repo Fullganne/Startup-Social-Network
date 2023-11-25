@@ -1,7 +1,12 @@
 import React from "react";
-import { Modal,ModalBody,ModalOverlay,ModalContent} from "@chakra-ui/react";
+import { Modal,ModalBody,ModalOverlay,ModalContent, useDisclosure} from "@chakra-ui/react";
+import ModalFriend from "./modalFriend";
 
-const ModelGuess=({onClose,isOpen})=>{
+const ModelGuess=({onClose,isOpen, idpost})=>{
+  const { onOpen } = useDisclosure()
+  const handleOpenModel=()=>{
+    onOpen()
+};
     return(
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
@@ -9,10 +14,10 @@ const ModelGuess=({onClose,isOpen})=>{
     
           <ModalBody>
             <div className="rounded-none text-red-500 py-3 text-center border-b-2" >
-                <button className="">Báo cáo bài viết</button>
+                <button className=""onClick={handleOpenModel} >Báo cáo bài viết</button>
                 <div></div>
             </div>
-            
+            <ModalFriend idpost={idpost} isOpen={isOpen} onClose={onClose}/>
             
         
           </ModalBody>

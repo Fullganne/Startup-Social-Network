@@ -72,7 +72,7 @@ const PostCardFriend=({data})=>{
                     </div>
                 </div>  */} {/*Comment nếu có */}
             </div>
-            {<ModelGuess isOpen={isOpen} onClose={onClose}/>}
+            {<ModelGuess isOpen={isOpen} onClose={onClose} idpost={data.id_post}/>}
         </div>
         
     )
