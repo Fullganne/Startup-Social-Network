@@ -3,13 +3,15 @@ import PostCard from '../../Components/Post/post'
 import HomeRight from '../../Components/HomeRight/HomeRight'
 import { UserContext } from '../../Context/UserContext';
 import userService from '../../services/userService';
+import postService from '../../services/postService';
+import PostCardFriend from '../../Components/Post/postCardFriend';
 
 const HomePage = () => {
   const { userData } = useContext(UserContext);
   const [dataPost, setDataPost] = useState([]);
 
   const handleFetchPost = async () => {
-    const tmp = await userService.getUserNotId(userData.id);
+    const tmp = await postService.getPostUserNotId(userData.id)
     setDataPost(tmp.data);
   };
 
@@ -22,15 +24,25 @@ const HomePage = () => {
       <div className='mt-10 flex w-[100%] justify-center'>
         <div className='w-[70%] px-10 flex justify-center'>
             <div className='space-y-10 w-[60%] mt-10'>
-            {dataPost.map((user) => (
-              user.Post.map((postItem) => (
-                <PostCard
+            {dataPost.
+            map(
+              (postItem) => (
+              // postItem.Post.map((postItem) => (
+                // <PostCard
+                //   key={postItem.id_post}
+                //   id={postItem.id_post}
+                //   data={postItem}
+                // />
+              // )
+              // )
+                <PostCardFriend
                   key={postItem.id_post}
                   id={postItem.id_post}
                   data={postItem}
                 />
-              ))
-            ))}
+            )
+            )
+            }
             </div>
         </div>
         <div className='w-[30%]'>
