@@ -49,6 +49,15 @@ const postService = {
                 timeout: 5000,
             })
             .post(`/dislike?id_post=${id_post}&userId=${id_user}`),
+
+    getPostUserNotId:(id)=>
+    axios
+    .create({
+        baseURL: POST_ENDPOINT,
+        timeout: 5000,
+    })
+    .get(`/nouser/${id}`),
+
 };
 
 export default postService;
