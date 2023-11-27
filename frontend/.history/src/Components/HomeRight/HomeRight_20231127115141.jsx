@@ -81,7 +81,7 @@ const HomeRight = () => {
                     .slice(0, 5)
                     .map((item) => (
                         <SuggestionCard
-                            // key={item.id}
+                            key={item.id}
                             user={item}
                             followings={followings || []}
                         />

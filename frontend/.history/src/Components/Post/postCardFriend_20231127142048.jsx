@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./post.css";
 import { Link } from "react-router-dom";
-import { Image } from "cloudinary-react";
 import {
     BsThreeDots,
     BsBookmarkFill,
@@ -14,16 +13,15 @@ import { RiSendPlaneLine } from "react-icons/ri";
 import ModelGuess from "./guess";
 import { useDisclosure } from "@chakra-ui/react";
 import ModelUser from "./userModel";
-
 import { UserContext } from "../../Context/UserContext";
 import postService from "../../services/postService";
-import userService from "../../services/userService";
 
-const PostCard = ({ data, handleFetchPost }) => {
+const PostCardFriend = ({ data, user, func }) => {
+    const [isPostLiked, setIsPostLiked] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
-    const [like, setLike] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { userData, handleFetchUsers } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
+    const [like, setLike] = useState(false);
 
     useEffect(() => {
         // Move your logic here
@@ -33,64 +31,56 @@ const PostCard = ({ data, handleFetchPost }) => {
             setLike(false);
         }
 
-        console.log("Data");
-        console.log(data);
+        // console.log("Data");
+        // console.log(data);
 
         let id = userData.id;
         let likedUser = data.likedUsers || "";
         console.log("Username: " + id);
         console.log("Liked user: " + likedUser);
         console.log("Like: " + like);
-    }, [data.likedUsers, userData.id]);
+    }, [data.likedUsers]);
 
-    const handleSavePost = () => {
-        setIsSaved(!isSaved);
-    };
-    let used = "user";
-    const handleOpenModel = () => {
-        onOpen();
-    };
     const handlePostLiked = async () => {
         if (like == false) {
             console.log("Xử lí like");
             await postService.likePost(data.id_post, userData.id);
-            await handleFetchPost();
+            await func();
         } else {
             console.log("Xử lí dislike");
             await postService.dislikePost(data.id_post, userData.id);
-            await handleFetchPost();
+            await func();
         }
     };
 
-    const handleDeletePost = async () => {
-        await postService.deletePost(data.id_post);
-        handleFetchPost();
-        handleFetchUsers();
+    const handleSavePost = () => {
+        setIsSaved(!isSaved);
     };
-
-    const handleUpdatePost = async (da) => {
-        await postService.updatePost(data.id_post, { privacy: da });
-        // console.log(data.)
+    let used = "guess";
+    const handleOpenModel = () => {
+        onOpen();
     };
-
+    // const handlePostLiked = () => {
+    //     setIsPostLiked(!isPostLiked);
+    // };
+    console.log(data);
     return (
         <div>
-            <div className="border rounded-md w-full my-10">
+            <div className="border rounded-md w-full mt-20">
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center">
-                        <Image
-                            cloudName="da0ikowpn"
-                            // publicId="http://res.cloudinary.com/da0ikowpn/image/upload/v1700754070/wmpl0o8xmngl8ocxzxsv.jpg"
-                            publicId={userData.avatar}
-                            className="block float-right object-cover w-14 h-14 rounded-full"
-                            alt="Avatar"
+                        <img
+                            className="h-12 w-12 rounded-full"
+                            //  src="https://cdn.pixabay.com/photo/2023/10/27/12/13/vineyard-8345243_1280.jpg"
+                            src={user.avatar}
+                            alt=""
                         />
-
                         <div className="pl-2">
                             <p className="font-semibold text-sm">
-                                {userData?.username}
+                                {user.username}
+                                {/* Tên */}
                             </p>
-                            <p className="font-thin text-sm">{data?.day}</p>
+                            <p className="font-thin text-sm">{data.day}</p>
                         </div>
                     </div>
                     <div className="asss">
@@ -100,41 +90,23 @@ const PostCard = ({ data, handleFetchPost }) => {
                         />
                     </div>
                 </div>
-                <div className="pl-[20px] mb-[10px]">{data?.noidung}</div>
-                {data?.image && (
-                    <div
-                        style={{
-                            position: "relative",
-                            paddingBottom: "56.25%",
-                            height: 0,
-                        }}
-                    >
-                        <Image
-                            cloudName="da0ikowpn"
-                            publicId={data.image}
-                            className="w-full"
-                            style={{
-                                position: "absolute",
-                                top: 0,
-                                left: 0,
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover", // Add this line
-                            }}
-                            alt="Post Upload"
-                        />
-                    </div>
-                )}
+                <div className="w-full">
+                    {/* <img className='w-full' src='https://cdn.pixabay.com/photo/2023/10/28/18/02/songbird-8348139_640.png' alt=''/> */}
+                    <img className="w-full" src={data.image} alt="" />
+                </div>
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center space-x-2 ">
-                        {/* {isPostLiked? <AiFillHeart className='text-xl hover:opacity-50 cursor-pointer text-red-500' onClick={handlePostUnLiked}/>:<AiOutlineHeart className='text-xl hover:opacity-50 cursor-pointer' onClick={handlePostLiked}/>} */}
-                        <AiFillHeart
-                            // className="text-xl hover:opacity-50 cursor-pointer "
-                            className={`text-xl hover:opacity-50 cursor-pointer ${
-                                like ? "text-red-500" : ""
-                            }`}
-                            onClick={handlePostLiked}
-                        />
+                        {isPostLiked ? (
+                            <AiFillHeart
+                                className="text-xl hover:opacity-50 cursor-pointer text-red-500"
+                                onClick={handlePostLiked}
+                            />
+                        ) : (
+                            <AiOutlineHeart
+                                className="text-xl hover:opacity-50 cursor-pointer"
+                                onClick={handlePostLiked}
+                            />
+                        )}
                         {
                             <FaRegComment className="text-xl hover:opacity-50 cursor-pointer" />
                         }
@@ -168,17 +140,14 @@ const PostCard = ({ data, handleFetchPost }) => {
                 </div>  */}{" "}
                 {/*Comment nếu có */}
             </div>
-            {used === "user" ? (
-                <ModelUser
-                    handleUpdatePost={handleUpdatePost}
-                    handleDeletePost={handleDeletePost}
+            {
+                <ModelGuess
                     isOpen={isOpen}
                     onClose={onClose}
+                    idpost={data.id_post}
                 />
-            ) : (
-                <ModelGuess isOpen={isOpen} onClose={onClose} />
-            )}
+            }
         </div>
     );
 };
-export default PostCard;
+export default PostCardFriend;

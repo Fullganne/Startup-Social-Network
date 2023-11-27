@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import "./post.css";
 import { Link } from "react-router-dom";
 import {
@@ -14,45 +14,12 @@ import ModelGuess from "./guess";
 import { useDisclosure } from "@chakra-ui/react";
 import ModelUser from "./userModel";
 import { UserContext } from "../../Context/UserContext";
-import postService from "../../services/postService";
 
-const PostCardFriend = ({ data, user, func, posts }) => {
+const PostCardFriend = ({ data }) => {
     const [isPostLiked, setIsPostLiked] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { userData } = useContext(UserContext);
-    const [like, setLike] = useState(false);
-
-    useEffect(() => {
-        // Move your logic here
-        if (data.likedUsers.split(";").includes(userData.id)) {
-            setLike(true);
-        } else {
-            setLike(false);
-        }
-
-        // console.log("Data");
-        // console.log(data);
-
-        let id = userData.id;
-        let likedUser = data.likedUsers || "";
-        console.log("Username: " + id);
-        console.log("Liked user: " + likedUser);
-        console.log("Like: " + like);
-    }, [data.likedUsers]);
-
-    const handlePostLiked = async () => {
-        if (like == false) {
-            console.log("Xử lí like");
-            await postService.likePost(data.id_post, userData.id);
-            await func();
-        } else {
-            console.log("Xử lí dislike");
-            await postService.dislikePost(data.id_post, userData.id);
-            await func();
-        }
-    };
-
     const handleSavePost = () => {
         setIsSaved(!isSaved);
     };
@@ -60,25 +27,25 @@ const PostCardFriend = ({ data, user, func, posts }) => {
     const handleOpenModel = () => {
         onOpen();
     };
-    // const handlePostLiked = () => {
-    //     setIsPostLiked(!isPostLiked);
-    // };
+    const handlePostLiked = () => {
+        setIsPostLiked(!isPostLiked);
+    };
     console.log(data);
     return (
         <div>
             <div className="border rounded-md w-full mt-20">
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center">
+                        <p>Đang test</p>
                         <img
                             className="h-12 w-12 rounded-full"
                             //  src="https://cdn.pixabay.com/photo/2023/10/27/12/13/vineyard-8345243_1280.jpg"
-                            src={user.avatar}
+                            src={userData.avatar}
                             alt=""
                         />
                         <div className="pl-2">
                             <p className="font-semibold text-sm">
-                                {user.username}
-                                {/* Tên */}
+                                {data.username}
                             </p>
                             <p className="font-thin text-sm">{data.day}</p>
                         </div>
@@ -96,7 +63,7 @@ const PostCardFriend = ({ data, user, func, posts }) => {
                 </div>
                 <div className="flex justify-between items-center w-full py-4 px-5">
                     <div className="flex items-center space-x-2 ">
-                        {like ? (
+                        {isPostLiked ? (
                             <AiFillHeart
                                 className="text-xl hover:opacity-50 cursor-pointer text-red-500"
                                 onClick={handlePostLiked}

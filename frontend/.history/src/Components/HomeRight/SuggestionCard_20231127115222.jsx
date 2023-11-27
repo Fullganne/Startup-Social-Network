@@ -54,7 +54,7 @@ const SuggestionCard = ({ user, followings }) => {
     }, []);
 
     return (
-        <div>
+        <div key={user.id}>
             <div className="flex justify-between items-center">
                 <div className="flex items-center">
                     <div>
