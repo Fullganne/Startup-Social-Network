@@ -53,10 +53,10 @@ const HomePage = () => {
             postList = posts;
         }
 
-        // console.log("Ở đây là test FOLLOWINGS");
-        // console.log(followingsData.data);
+        console.log("Ở đây là test FOLLOWINGS");
+        console.log(followingsData.data);
 
-        // console.log("Ở đây là test POSTS");
+        console.log("Ở đây là test POSTS");
         // console.log(postList.data);
 
         setFollowings(followingsData.data);
@@ -83,7 +83,6 @@ const HomePage = () => {
                                 data={postItem}
                                 user={postItem.user}
                                 func={handleFetchPost}
-                                posts={dataPost}
                             />
                         ))}
                     </div>

@@ -83,7 +83,6 @@ const HomePage = () => {
                                 data={postItem}
                                 user={postItem.user}
                                 func={handleFetchPost}
-                                posts={dataPost}
                             />
                         ))}
                     </div>

@@ -11,64 +11,54 @@ const HomePage = () => {
     const { userData } = useContext(UserContext);
     const [dataPost, setDataPost] = useState([]);
     const [followings, setFollowings] = useState(null);
-    // const [posts, setPosts] = useState([]);
     let count = 5;
 
-    const handleFetchPost = async (posts) => {
-        let postList = null;
-        let followingsData = await followService.getFollowings(userData.id);
+    const handleFetchPost = async () => {
+        const postList = await postService.getPostUserNotId(userData.id);
+        const followingsData = await followService.getFollowings(userData.id);
 
-        if (posts == null) {
-            postList = await postService.getPostUserNotId(userData.id);
+        console.log("Ở đây là test FOLLOWINGS");
+        console.log(followingsData.data);
 
-            // Lấy tất cả bài đăng từ người chưa theo dõi
-            const notFollowedPosts = postList.data
-                .filter(
-                    (postItem) =>
-                        !followingsData.data.some(
-                            (item) => item.followed === postItem.user.id
-                        )
-                )
-                .sort((a, b) => b.trongso - a.trongso);
+        console.log("Ở đây là test POSTS");
+        console.log(postList.data);
 
-            // Lấy tối đa 5 bài đăng (3 từ người đã theo dõi và 2 từ người chưa theo dõi)
-            const finalPosts = [
-                ...postList.data
-                    .filter((postItem) =>
-                        followingsData.data.some(
-                            (item) => item.followed === postItem.user.id
-                        )
+        // Lấy tất cả bài đăng từ người chưa theo dõi
+        const notFollowedPosts = postList.data
+            .filter(
+                (postItem) =>
+                    !followingsData.data.some(
+                        (item) => item.followed === postItem.user.id
                     )
-                    .sort((a, b) => b.trongso - a.trongso),
-                ...notFollowedPosts,
-            ].slice(0, count);
+            )
+            .sort((a, b) => b.trongso - a.trongso);
 
-            finalPosts.forEach((post) => {
-                post.trongso /= 2;
-                postService.updatePost(post.id_post, post);
-            });
+        // Lấy tối đa 5 bài đăng (3 từ người đã theo dõi và 2 từ người chưa theo dõi)
+        const finalPosts = [
+            ...postList.data
+                .filter((postItem) =>
+                    followingsData.data.some(
+                        (item) => item.followed === postItem.user.id
+                    )
+                )
+                .sort((a, b) => b.trongso - a.trongso),
+            ...notFollowedPosts,
+        ].slice(0, count);
 
-            postList = finalPosts;
-        } else {
-            postList = posts;
-        }
-
-        // console.log("Ở đây là test FOLLOWINGS");
-        // console.log(followingsData.data);
-
-        // console.log("Ở đây là test POSTS");
-        // console.log(postList.data);
+        finalPosts.forEach((post) => {
+            post.trongso /= 2;
+            postService.updatePost(post.id_post, post);
+        });
 
         setFollowings(followingsData.data);
-        setDataPost(postList);
-        // setPosts(finalPosts);
+        setDataPost(finalPosts);
 
         console.log("DANH SÁCH POSTTTTTT");
-        console.log(postList);
+        console.log(finalPosts);
     };
 
     useEffect(() => {
-        handleFetchPost(null);
+        handleFetchPost();
     }, []);
 
     return (
@@ -82,8 +72,6 @@ const HomePage = () => {
                                 id={postItem.id_post}
                                 data={postItem}
                                 user={postItem.user}
-                                func={handleFetchPost}
-                                posts={dataPost}
                             />
                         ))}
                     </div>

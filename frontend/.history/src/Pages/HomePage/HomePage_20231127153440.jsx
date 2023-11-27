@@ -47,24 +47,22 @@ const HomePage = () => {
                 post.trongso /= 2;
                 postService.updatePost(post.id_post, post);
             });
-
-            postList = finalPosts;
         } else {
             postList = posts;
         }
 
-        // console.log("Ở đây là test FOLLOWINGS");
-        // console.log(followingsData.data);
+        console.log("Ở đây là test FOLLOWINGS");
+        console.log(followingsData.data);
 
-        // console.log("Ở đây là test POSTS");
-        // console.log(postList.data);
+        console.log("Ở đây là test POSTS");
+        console.log(postList.data);
 
         setFollowings(followingsData.data);
-        setDataPost(postList);
+        setDataPost(finalPosts);
         // setPosts(finalPosts);
 
         console.log("DANH SÁCH POSTTTTTT");
-        console.log(postList);
+        console.log(finalPosts);
     };
 
     useEffect(() => {
@@ -83,7 +81,6 @@ const HomePage = () => {
                                 data={postItem}
                                 user={postItem.user}
                                 func={handleFetchPost}
-                                posts={dataPost}
                             />
                         ))}
                     </div>
