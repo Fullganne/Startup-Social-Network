@@ -56,7 +56,6 @@ const ReqUserPostPart = () => {
     //     setDataPost(tmp.data.post);
     // };
 
-    console.log("ds post ne: ", dataPost);
     return (
         <div>
             <div className="tab flex items-center justify-center space-x-16 border-t relative">
@@ -84,7 +83,6 @@ const ReqUserPostPart = () => {
             {/* <Outlet/> */}
 
             <div className="w-[50%] mx-auto">
-                {console.log(userData)}
                 {dataPost?.map((item) => {
                     return (
                         <PostCard

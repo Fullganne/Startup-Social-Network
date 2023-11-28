@@ -27,18 +27,13 @@ export const AppProvider = ({ children }) => {
 
     const [userNotId, setUserNotId] = useState([]);
     const handleFetchUsers = async () => {
-        console.log("handleFetchUsers");
         const tmp = await userService.getById(userData.id);
-        console.log(tmp);
-
         // setDataPost(tmp.data.post);
         setUserData(tmp.data);
     };
 
     const handleFetchUserNotThisId = async () => {
         const tmp = await userService.getUserNotId(userData.id);
-        console.log(userData.id);
-
         // setDataPost(tmp.data.post);
         setUserNotId(tmp.data);
     };
